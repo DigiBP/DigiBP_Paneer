@@ -18,7 +18,7 @@
 - Removing Camunda Modeler Templates
 
 ### 3.2.3
-- Adding `spring-boot-starter-jdbc` dependency, otherwise `spring:datasource` is ignored.
+- Adding `spring-boot-starter-jdbc` dependency, otherwise `spring:datasource` is ignored. blbabla
 
 ### 3.2.2
 - Use of Camunda deployment procedure (embedded:deployment) instead of Spring Boot (embedded:app)
