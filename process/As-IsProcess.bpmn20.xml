@@ -11,9 +11,7 @@
       </lane>
       <lane id="sid-D2A35009-8D48-4FFE-8DC0-85119ECBFDEE" name="Billing">
         <flowNodeRef>sid-D1EB8FFB-12FA-4203-886F-BB8B695EAF69</flowNodeRef>
-        <flowNodeRef>sid-A3D17BEF-42B2-4251-93AF-6E5BF30C2698</flowNodeRef>
         <flowNodeRef>sid-CAAB0F73-95CA-468A-AD7C-76B9CB3755A4</flowNodeRef>
-        <flowNodeRef>sid-20D612E7-D5DC-477C-B3D8-C45F40FE7D02</flowNodeRef>
         <flowNodeRef>sid-EDB876F4-F0C7-44DC-A398-A3C9F2BF0694</flowNodeRef>
         <flowNodeRef>sid-6B100388-0A7A-41A6-91A4-61C4623495B6</flowNodeRef>
         <flowNodeRef>sid-E763C1EA-042A-47CA-B0C4-CE1BD0D38E1F</flowNodeRef>
@@ -372,8 +370,8 @@
         <omgdi:waypoint x="362" y="373" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_sid-06C4F7A0-BA32-412E-8009-120AC389ECB8" bpmnElement="sid-06C4F7A0-BA32-412E-8009-120AC389ECB8">
-        <omgdi:waypoint x="412" y="409" />
-        <omgdi:waypoint x="425" y="408" />
+        <omgdi:waypoint x="412" y="413" />
+        <omgdi:waypoint x="425" y="413" />
         <omgdi:waypoint x="425" y="197" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_sid-D7AE190A-A94A-4C3C-BF25-1580A031FA6B" bpmnElement="sid-D7AE190A-A94A-4C3C-BF25-1580A031FA6B">
