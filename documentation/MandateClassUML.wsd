@@ -1,0 +1,36 @@
+'Follow instructions to install plantUML in Visual Studio Code https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml#overview
+'Plantuml nomenclature here: https://plantuml.com/class-diagram
+'Configure Xcode to use remote server to generate image https://blog.anoff.io/2018-07-31-diagrams-with-plantuml/
+@startuml MandateClassUML
+
+Mandate o-- Employee
+Mandate o-- Customer
+
+class Mandate {
+    name : String
+    isActive : Boolean
+    accountingId : String
+    quickReporterId : String
+    type : String
+    clientManager : Employee
+    salesResponsible : Employee
+    customerContact : Customer
+    billableEmployee : List<Employee>
+    paymentSchedule : String
+}
+
+class Person {
+    name : String
+    email : String
+}
+
+Person <|-- Employee
+class Employee {
+}
+
+Person <|-- Customer
+class Customer {
+    contactInformation : String
+    accessTimeSheet : boolean
+}
+@enduml
