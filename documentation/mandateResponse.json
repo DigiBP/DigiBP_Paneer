@@ -1,0 +1,29 @@
+{
+    "mandate":{
+        "name":"Sponge",
+        "isActive":"true",
+        "accountingId": "555-55-55",
+        "type": "Project",
+        "clientManager": "Bob Squarepants",
+        "salesResponsable": "Patrick Star",
+        "paymentSchedule": "Monthly",
+        "customerConact": 
+        {
+            "name": "Sandy Cheeks",
+            "email": "sandy.cheeks@bikinibottom.com",
+            "contactInformaiton": "079/5550040",
+            "accessTimeSheet": "false"
+        },
+        "billableEmployees":
+        {
+            "employee":{
+                "name": "Snail Garry",
+                "email": "snail.garry@bikinibottom.com"
+            },
+            "employee":{
+                "name": "Squidward Tentacles",
+                "email": "squidward.tentacles@bikinibottom.com"
+            }
+        }
+    }
+}
