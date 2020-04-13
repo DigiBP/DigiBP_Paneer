@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ch.fhnw.digibp</groupId>
-    <artifactId>digibp-camunda-template</artifactId>
+    <artifactId>digibp-paneer</artifactId>
     <version>3.4.0</version>
     <packaging>jar</packaging>
 
@@ -40,6 +40,14 @@
 
 
     <dependencies>
+
+    <!-- https://mvnrepository.com/artifact/org.camunda.bpm/camunda-external-task-client -->
+        <dependency>
+            <groupId>org.camunda.bpm</groupId>
+            <artifactId>camunda-external-task-client</artifactId>
+            <version>1.3.0</version>
+        </dependency>
+
         <!-- Camunda Spring Boot -->
         <dependency>
             <groupId>org.camunda.bpm.springboot</groupId>
@@ -100,6 +108,17 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+			<groupId>com.konghq</groupId>
+			<artifactId>unirest-java</artifactId>
+			<version>2.1.03</version>
+		</dependency>
+        <dependency>
+            <groupId>com.konghq</groupId>
+            <artifactId>unirest-objectmapper-jackson</artifactId>
+            <version>3.7.02</version>
         </dependency>
 
     </dependencies>
