@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package ch.fhnw.digibp.config;
+package ch.fhnw.digibp.external.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package ch.fhnw.digibp.config;
+package ch.fhnw.digibp.external.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
