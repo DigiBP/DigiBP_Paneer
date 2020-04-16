@@ -1,6 +1,9 @@
 package ch.fhnw.digibp.external.client;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -14,6 +17,7 @@ import org.camunda.bpm.client.task.ExternalTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import ch.fhnw.digibp.external.client.mandate.BillableEmployee;
 import ch.fhnw.digibp.external.client.mandate.Mandate;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
@@ -41,12 +45,22 @@ public class RetrieveMandateInformationService{
                 variables.put("mandate", mandate.getMandate());
                 variables.put("customerContact", mandate.getMandate().getCustomerContact());
                 variables.put("billableEmployees", mandate.getMandate().getBillableEmployees());
-                variables.put("nbBillableEmployees", mandate.getMandate().getBillableEmployees().size());
+                variables.put("billableEmployeesCollection",Arrays.asList("john", "mary"));
+
+
                 externalTaskService.complete(externalTask, variables);
             } catch (Exception e) {
                 logger.warning(e.getMessage());
                 externalTaskService.handleBpmnError(externalTask, "RefundPaymentFailed");
             }                
         }).open();
+    }
+
+    private List<String> transformBillableEmployeesToUserList(List<BillableEmployee> employees){
+        List<String> userList = new ArrayList<>();
+        for (BillableEmployee employee : employees) {
+            userList.add(employee.getEmployee().getName());
+        }
+        return userList;
     }
 }
