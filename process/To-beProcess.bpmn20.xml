@@ -18,7 +18,6 @@
         <flowNodeRef>sid-D7AE190A-A94A-4C3C-BF25-1580A031FA6B</flowNodeRef>
         <flowNodeRef>sid-654D3BB2-619F-49DB-9CBD-2B09298A4706</flowNodeRef>
         <flowNodeRef>sid-80A661BD-A1D2-4C9E-B200-5A961A69DF7A</flowNodeRef>
-        <flowNodeRef>StartEvent_0j203d1</flowNodeRef>
         <flowNodeRef>sid-49B0ADD1-D0DB-45ED-A236-75B62F6186E8</flowNodeRef>
         <flowNodeRef>sid-BD58DBA1-EC3E-4E68-B9A0-740348682DD2</flowNodeRef>
         <flowNodeRef>sid-4AE18632-ACD1-4582-B884-C4CED0FE692A</flowNodeRef>
@@ -48,12 +47,7 @@
         <flowNodeRef>sid-5831F6FE-01C0-4B80-A457-9D78A4328032</flowNodeRef>
       </lane>
     </laneSet>
-    <startEvent id="StartEvent_0j203d1" name="Recieves notification when all employees validate time logging">
-      <outgoing>SequenceFlow_0swfcc3</outgoing>
-      <messageEventDefinition id="MessageEventDefinition_15qbz09" messageRef="Message_07t5n5v" />
-    </startEvent>
     <userTask id="sid-49B0ADD1-D0DB-45ED-A236-75B62F6186E8" name="Validate that every thing is correctly logged" flowable:formFieldValidation="true">
-      <incoming>SequenceFlow_0swfcc3</incoming>
       <incoming>SequenceFlow_1mmuk1w</incoming>
     </userTask>
     <exclusiveGateway id="sid-BD58DBA1-EC3E-4E68-B9A0-740348682DD2" default="sid-67FCA96A-299A-4686-8E36-68656DA5002D" />
@@ -65,6 +59,14 @@
     <userTask id="sid-E54A62A9-B1AF-4ACE-AF7A-199539CDE4B9" name="Save hours for next month" flowable:formFieldValidation="true" />
     <endEvent id="sid-AAE5C533-B69A-4C8F-9F76-9271D6A5DFF4" />
     <serviceTask id="sid-4E66B97C-3D7C-4F88-BDB3-99F31BC9FB42" name="Trigger &#34;Quick reporter App&#34;" camunda:expression="${true}">
+      <extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="method">POST</camunda:inputParameter>
+          <camunda:inputParameter name="url">integromat.com/webhook</camunda:inputParameter>
+          <camunda:inputParameter name="connector">http-connector</camunda:inputParameter>
+          <camunda:inputParameter name="name">${mandateName} --&gt; SECO</camunda:inputParameter>
+        </camunda:inputOutput>
+      </extensionElements>
       <incoming>sid-654D3BB2-619F-49DB-9CBD-2B09298A4706</incoming>
       <outgoing>sid-58E312D0-9272-4FC2-84D7-43334D245247</outgoing>
     </serviceTask>
@@ -84,6 +86,9 @@
       <outgoing>sid-DFCBE6D5-8B8A-4BA6-9F52-18B030E6D0BB</outgoing>
     </sendTask>
     <userTask id="sid-5831F6FE-01C0-4B80-A457-9D78A4328032" name="Control time logging" camunda:assignee="${billableEmployeesCollection.get(loopCounter)}" flowable:formFieldValidation="true">
+      <extensionElements>
+        <camunda:taskListener class="ch.fhnw.digibp.external.TaskAssignmentListener" event="assignment" id="TaskAssignmentListenerEmployeeControlTime" />
+      </extensionElements>
       <incoming>sid-D7AE190A-A94A-4C3C-BF25-1580A031FA6B</incoming>
       <outgoing>SequenceFlow_1mmuk1w</outgoing>
       <multiInstanceLoopCharacteristics camunda:collection="${billableEmployeesCollection}" />
@@ -123,7 +128,6 @@
     <sequenceFlow id="SequenceFlow_0uvpnvz" sourceRef="Task_1e58udj" targetRef="sid-B1262BF1-8725-4825-AED2-9FAF332D5855" />
     <sequenceFlow id="SequenceFlow_1mmuk1w" sourceRef="sid-5831F6FE-01C0-4B80-A457-9D78A4328032" targetRef="sid-49B0ADD1-D0DB-45ED-A236-75B62F6186E8" />
     <sequenceFlow id="SequenceFlow_00ajp93" sourceRef="SubProcess_Billing" targetRef="EndEvent_1cp1y61" />
-    <sequenceFlow id="SequenceFlow_0swfcc3" sourceRef="StartEvent_0j203d1" targetRef="sid-49B0ADD1-D0DB-45ED-A236-75B62F6186E8" />
     <sequenceFlow id="SequenceFlow_1tw3500" name="ok" sourceRef="sid-3EEE9115-7AC3-4B30-85CB-AC462E03D3C7" targetRef="SubProcess_Billing" />
     <sequenceFlow id="sid-58E312D0-9272-4FC2-84D7-43334D245247" sourceRef="sid-4E66B97C-3D7C-4F88-BDB3-99F31BC9FB42" targetRef="sid-1AA78D20-1DC7-495C-9AC3-53081966DE75" />
     <sequenceFlow id="sid-C1EE4A9D-E452-4F36-BCA6-B3F9932A6722" sourceRef="sid-1AA78D20-1DC7-495C-9AC3-53081966DE75" targetRef="sid-74EAC26F-176C-4A66-97CE-C1882924EC36" />
@@ -156,7 +160,6 @@
     <association id="Association_1pcwyob" sourceRef="sid-E54A62A9-B1AF-4ACE-AF7A-199539CDE4B9" targetRef="TextAnnotation_02bvrgt" />
   </process>
   <message id="Message_07t5n5v" name="Message_0n8rm01" />
-  <message id="Message_0ln4jk3" name="Message_3geoo39" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_Collaboration">
     <bpmndi:BPMNPlane id="BPMNPlane_Collaboration" bpmnElement="Collaboration">
       <bpmndi:BPMNShape id="BPMNShape_sid-ABCB7757-1BDD-4955-BDDE-07C339410343" bpmnElement="sid-ABCB7757-1BDD-4955-BDDE-07C339410343" isHorizontal="true">
@@ -355,16 +358,6 @@
       <bpmndi:BPMNEdge id="Association_1pcwyob_di" bpmnElement="Association_1pcwyob">
         <omgdi:waypoint x="972" y="246" />
         <omgdi:waypoint x="977" y="322" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="StartEvent_1wfjrv9_di" bpmnElement="StartEvent_0j203d1">
-        <omgdc:Bounds x="490" y="134" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="467" y="177" width="82" height="66" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_0swfcc3_di" bpmnElement="SequenceFlow_0swfcc3">
-        <omgdi:waypoint x="526" y="152" />
-        <omgdi:waypoint x="578" y="152" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_00ajp93_di" bpmnElement="SequenceFlow_00ajp93">
         <omgdi:waypoint x="2098" y="792" />
