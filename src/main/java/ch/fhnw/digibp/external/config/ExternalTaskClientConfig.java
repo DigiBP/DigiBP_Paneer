@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import ch.fhnw.digibp.external.TaskAssignmentListener;
+
 @Configuration
 public class ExternalTaskClientConfig {
     @Value("${camunda-rest.url}")
@@ -22,5 +24,10 @@ public class ExternalTaskClientConfig {
                 .asyncResponseTimeout(29000)
                 .disableBackoffStrategy()
                 .build();
+    }
+
+    @Bean
+    public TaskAssignmentListener taskAssignmentListener(){
+        return new TaskAssignmentListener();
     }
 }

@@ -19,6 +19,9 @@ public class TaskAssignmentListener implements TaskListener {
 
     private final static Logger LOGGER = Logger.getLogger(TaskAssignmentListener.class.getName());
 
+    public TaskAssignmentListener(){}
+
+
     @Override
     public void notify(final DelegateTask delegateTask) {
 
