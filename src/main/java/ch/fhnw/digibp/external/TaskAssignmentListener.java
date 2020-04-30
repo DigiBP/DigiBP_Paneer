@@ -13,14 +13,11 @@ import org.camunda.bpm.engine.impl.context.Context;
 
 public class TaskAssignmentListener implements TaskListener {
 
-    private static final String HOST = "mail.bikinibottom.ch";
+    private static final String HOST = "localhost";
     private static final String USER = "admin@bikinibottom.ch";
     private static final String PWD = "toomanysecrets";
 
     private final static Logger LOGGER = Logger.getLogger(TaskAssignmentListener.class.getName());
-
-    public TaskAssignmentListener(){}
-
 
     @Override
     public void notify(final DelegateTask delegateTask) {
@@ -44,13 +41,14 @@ public class TaskAssignmentListener implements TaskListener {
                     final Email email = new SimpleEmail();
                     email.setCharset("utf-8");
                     email.setHostName(HOST);
+                    email.setSmtpPort(1025);
                     email.setAuthentication(USER, PWD);
 
                     try {
                         email.setFrom("noreply@cbikinibottom.ch");
                         email.setSubject("Task assigned: " + delegateTask.getName());
                         email.setMsg(
-                                "Please complete: http://localhost:8080/camunda/app/tasklist/default/#/task=" + taskId);
+                                "Please complete: http://localhost:8080/app/tasklist/default/#/?searchQuery=%5B%5D&filter=" + taskId);
 
                         email.addTo(recipient);
 

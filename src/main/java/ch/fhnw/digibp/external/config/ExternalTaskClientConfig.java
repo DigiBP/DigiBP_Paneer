@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import ch.fhnw.digibp.external.TaskAssignmentListener;
+import ch.fhnw.digibp.demoressources.AuthorizationGenerator;
 
 @Configuration
 public class ExternalTaskClientConfig {
@@ -27,7 +27,7 @@ public class ExternalTaskClientConfig {
     }
 
     @Bean
-    public TaskAssignmentListener taskAssignmentListener(){
-        return new TaskAssignmentListener();
+    public AuthorizationGenerator authorizationGenerator(){
+        return new AuthorizationGenerator();
     }
 }
