@@ -1,16 +1,17 @@
 package ch.fhnw.digibp.external.client;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.apache.commons.lang3.StringUtils;
 import org.camunda.bpm.client.ExternalTaskClient;
 import org.camunda.bpm.client.task.ExternalTask;
 import org.camunda.bpm.client.task.ExternalTaskService;
@@ -29,6 +30,7 @@ public class RetrieveMandateInformationService{
     @Autowired
     ExternalTaskClient client;
 
+
     @PostConstruct
     private void subscribeTopics() {
         client.subscribe("RetrieveMandateInformation")
@@ -45,13 +47,11 @@ public class RetrieveMandateInformationService{
                 variables.put("mandate", mandate.getMandate());
                 variables.put("customerContact", mandate.getMandate().getCustomerContact());
                 variables.put("billableEmployees", mandate.getMandate().getBillableEmployees());
-                variables.put("billableEmployeesCollection",Arrays.asList("john", "mary"));
-
-
+                variables.put("billableEmployeesCollection",transformBillableEmployeesToUserList(mandate.getMandate().getBillableEmployees()));
                 externalTaskService.complete(externalTask, variables);
             } catch (Exception e) {
-                logger.warning(e.getMessage());
-                externalTaskService.handleBpmnError(externalTask, "RefundPaymentFailed");
+                logger.log(Level.SEVERE,e.getMessage());
+                externalTaskService.handleBpmnError(externalTask, "RetrieveMandateInformation");
             }                
         }).open();
     }
@@ -59,8 +59,13 @@ public class RetrieveMandateInformationService{
     private List<String> transformBillableEmployeesToUserList(List<BillableEmployee> employees){
         List<String> userList = new ArrayList<>();
         for (BillableEmployee employee : employees) {
-            userList.add(employee.getEmployee().getName());
+            userList.add(retrieveUserNameFromEmail(employee.getEmployee().getEmail()));
         }
         return userList;
+    }
+
+    private String retrieveUserNameFromEmail(String email){
+        String emailWithoutProvider = StringUtils.split(email,"@")[0];
+        return StringUtils.remove(emailWithoutProvider, '.');
     }
 }
