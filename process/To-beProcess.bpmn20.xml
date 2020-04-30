@@ -87,11 +87,11 @@
     </sendTask>
     <userTask id="sid-5831F6FE-01C0-4B80-A457-9D78A4328032" name="Control time logging" camunda:assignee="${billableEmployeesCollection.get(loopCounter)}" flowable:formFieldValidation="true">
       <extensionElements>
-        <camunda:taskListener class="ch.fhnw.digibp.external.TaskAssignmentListener" event="assignment" id="TaskAssignmentListenerEmployeeControlTime" />
+        <camunda:taskListener class="ch.fhnw.digibp.external.TaskAssignmentListener" event="create" id="TaskAssignmentListenerEmployeeControlTime" />
       </extensionElements>
       <incoming>sid-D7AE190A-A94A-4C3C-BF25-1580A031FA6B</incoming>
       <outgoing>SequenceFlow_1mmuk1w</outgoing>
-      <multiInstanceLoopCharacteristics camunda:collection="${billableEmployeesCollection}" />
+      <multiInstanceLoopCharacteristics camunda:asyncAfter="true" camunda:collection="${billableEmployeesCollection}" />
     </userTask>
     <startEvent id="StartEvent_1x3gyb1" name="Start of Process">
       <outgoing>SequenceFlow_1lc2llc</outgoing>
