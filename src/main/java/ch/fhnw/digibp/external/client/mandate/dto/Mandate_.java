@@ -1,5 +1,5 @@
 
-package ch.fhnw.digibp.external.client.mandate;
+package ch.fhnw.digibp.external.client.mandate.dto;
 
 import java.util.HashMap;
 import java.util.List;

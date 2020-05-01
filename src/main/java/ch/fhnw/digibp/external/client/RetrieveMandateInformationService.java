@@ -18,8 +18,8 @@ import org.camunda.bpm.client.task.ExternalTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import ch.fhnw.digibp.external.client.mandate.BillableEmployee;
-import ch.fhnw.digibp.external.client.mandate.Mandate;
+import ch.fhnw.digibp.external.client.mandate.dto.BillableEmployee;
+import ch.fhnw.digibp.external.client.mandate.dto.Mandate;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 

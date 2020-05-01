@@ -1,5 +1,5 @@
 
-package ch.fhnw.digibp.external.client.mandate;
+package ch.fhnw.digibp.external.client.mandate.dto;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,23 +12,36 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "mandate"
+    "name",
+    "email"
 })
-public class Mandate {
+public class Employee {
 
-    @JsonProperty("mandate")
-    private Mandate_ mandate;
+    @JsonProperty("name")
+    private String name;
+    @JsonProperty("email")
+    private String email;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    @JsonProperty("mandate")
-    public Mandate_ getMandate() {
-        return mandate;
+    @JsonProperty("name")
+    public String getName() {
+        return name;
     }
 
-    @JsonProperty("mandate")
-    public void setMandate(Mandate_ mandate) {
-        this.mandate = mandate;
+    @JsonProperty("name")
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @JsonProperty("email")
+    public String getEmail() {
+        return email;
+    }
+
+    @JsonProperty("email")
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @JsonAnyGetter
