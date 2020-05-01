@@ -30,6 +30,8 @@ public class RetrieveMandateInformationService{
     @Autowired
     ExternalTaskClient client;
 
+    @Autowired
+    UserService userService;
 
     @PostConstruct
     private void subscribeTopics() {
@@ -59,13 +61,8 @@ public class RetrieveMandateInformationService{
     private List<String> transformBillableEmployeesToUserList(List<BillableEmployee> employees){
         List<String> userList = new ArrayList<>();
         for (BillableEmployee employee : employees) {
-            userList.add(retrieveUserNameFromEmail(employee.getEmployee().getEmail()));
+            userList.add(userService.retrieveUserNameFromEmail(employee.getEmployee().getEmail()));
         }
         return userList;
-    }
-
-    private String retrieveUserNameFromEmail(String email){
-        String emailWithoutProvider = StringUtils.split(email,"@")[0];
-        return StringUtils.remove(emailWithoutProvider, '.');
     }
 }

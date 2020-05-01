@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "contactInformaiton",
     "accessTimeSheet"
 })
-public class CustomerContact {
+public class CustomerContactDTO {
 
     @JsonProperty("name")
     private String name;

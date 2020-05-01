@@ -14,20 +14,20 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
     "employee"
 })
-public class BillableEmployee {
+public class BillableEmployeeDTO {
 
     @JsonProperty("employee")
-    private Employee employee;
+    private EmployeeDTO employee;
     @JsonIgnore
     private final Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("employee")
-    public Employee getEmployee() {
+    public EmployeeDTO getEmployee() {
         return employee;
     }
 
     @JsonProperty("employee")
-    public void setEmployee(final Employee employee) {
+    public void setEmployee(final EmployeeDTO employee) {
         this.employee = employee;
     }
 

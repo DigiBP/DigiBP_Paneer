@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "customerContact",
     "billableEmployees"
 })
-public class Mandate_ {
+public class MandateDTO_ {
 
     @JsonProperty("name")
     private String name;
@@ -40,9 +40,9 @@ public class Mandate_ {
     @JsonProperty("paymentSchedule")
     private String paymentSchedule;
     @JsonProperty("customerContact")
-    private CustomerContact customerContact;
+    private CustomerContactDTO customerContact;
     @JsonProperty("billableEmployees")
-    private List<BillableEmployee> billableEmployees = null;
+    private List<BillableEmployeeDTO> billableEmployees = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -117,22 +117,22 @@ public class Mandate_ {
     }
 
     @JsonProperty("customerContact")
-    public CustomerContact getCustomerContact() {
+    public CustomerContactDTO getCustomerContact() {
         return customerContact;
     }
 
     @JsonProperty("customerContact")
-    public void setCustomerContact(CustomerContact customerContact) {
+    public void setCustomerContact(CustomerContactDTO customerContact) {
         this.customerContact = customerContact;
     }
 
     @JsonProperty("billableEmployees")
-    public List<BillableEmployee> getBillableEmployees() {
+    public List<BillableEmployeeDTO> getBillableEmployees() {
         return billableEmployees;
     }
 
     @JsonProperty("billableEmployees")
-    public void setBillableEmployees(List<BillableEmployee> billableEmployees) {
+    public void setBillableEmployees(List<BillableEmployeeDTO> billableEmployees) {
         this.billableEmployees = billableEmployees;
     }
 
