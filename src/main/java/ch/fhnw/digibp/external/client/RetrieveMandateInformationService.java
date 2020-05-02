@@ -11,15 +11,17 @@ import javax.annotation.PostConstruct;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.apache.commons.lang3.StringUtils;
 import org.camunda.bpm.client.ExternalTaskClient;
 import org.camunda.bpm.client.task.ExternalTask;
 import org.camunda.bpm.client.task.ExternalTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import ch.fhnw.digibp.external.client.mandate.dto.BillableEmployee;
-import ch.fhnw.digibp.external.client.mandate.dto.Mandate;
+import ch.fhnw.digibp.external.client.mandate.User;
+import ch.fhnw.digibp.external.client.mandate.dto.BillableEmployeeDTO;
+import ch.fhnw.digibp.external.client.mandate.dto.EmployeeDTO;
+import ch.fhnw.digibp.external.client.mandate.dto.MandateDTO;
+import ch.fhnw.digibp.external.client.mandate.dto.MandateRootObjectDTO;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 
@@ -29,9 +31,6 @@ public class RetrieveMandateInformationService{
 
     @Autowired
     ExternalTaskClient client;
-
-    @Autowired
-    UserService userService;
 
     @PostConstruct
     private void subscribeTopics() {
@@ -43,13 +42,14 @@ public class RetrieveMandateInformationService{
                 .asString();
 
                 ObjectMapper mapper = new ObjectMapper();
-                Mandate mandate = mapper.readValue(response.getBody(), Mandate.class);
+                MandateDTO mandateDTO = mapper.readValue(response.getBody(), MandateRootObjectDTO.class).getMandate();
 
                 Map<String, Object> variables = new HashMap<>();
-                variables.put("mandate", mandate.getMandate());
-                variables.put("customerContact", mandate.getMandate().getCustomerContact());
-                variables.put("billableEmployees", mandate.getMandate().getBillableEmployees());
-                variables.put("billableEmployeesCollection",transformBillableEmployeesToUserList(mandate.getMandate().getBillableEmployees()));
+                variables.put("mandate", mandateDTO);
+                variables.put("customerContact", mandateDTO.getCustomerContact());
+                variables.put("billableEmployees", mandateDTO.getBillableEmployees());
+                variables.put("billableEmployeesUsernameCollection",transformBillableEmployeesToUserList(mandateDTO.getBillableEmployees()));
+                variables.put("clientManagerUsername",getUserNameFromEmployee(mandateDTO.getClientManager().getEmployee()));
                 externalTaskService.complete(externalTask, variables);
             } catch (Exception e) {
                 logger.log(Level.SEVERE,e.getMessage());
@@ -58,11 +58,17 @@ public class RetrieveMandateInformationService{
         }).open();
     }
 
-    private List<String> transformBillableEmployeesToUserList(List<BillableEmployee> employees){
+    private List<String> transformBillableEmployeesToUserList(List<BillableEmployeeDTO> employees){
         List<String> userList = new ArrayList<>();
-        for (BillableEmployee employee : employees) {
-            userList.add(userService.retrieveUserNameFromEmail(employee.getEmployee().getEmail()));
+        for (BillableEmployeeDTO employee : employees) {
+            User user = new User(employee.getEmployee().getName(), employee.getEmployee().getEmail());
+            userList.add(user.getUsername());
         }
         return userList;
+    }
+
+    private String getUserNameFromEmployee(EmployeeDTO employee){
+        User user = new User(employee.getName(), employee.getEmail());
+        return user.getUsername();
     }
 }

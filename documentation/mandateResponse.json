@@ -4,8 +4,18 @@
         "isActive": "true",
         "accountingId": "555-55-55",
         "type": "Project",
-        "clientManager": "Bob Squarepants",
-        "salesResponsable": "Patrick Star",
+        "clientManager": {
+            "employee": {
+                "name": "Bob Squarepants",
+                "email": "bob.squarepants@bikinibottom.com"
+            }
+        },
+        "salesResponsable": {
+            "employee": {
+                "name": "Patrick Star",
+                "email": "patrick.star@bikinibottom.com"
+            }
+        },
         "paymentSchedule": "Monthly",
         "customerContact": {
             "name": "Sandy Cheeks",
