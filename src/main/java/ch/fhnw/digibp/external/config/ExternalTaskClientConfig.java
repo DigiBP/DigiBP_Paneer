@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import ch.fhnw.digibp.demoressources.AuthorizationGenerator;
-import ch.fhnw.digibp.external.client.UserService;
 
 @Configuration
 public class ExternalTaskClientConfig {
@@ -30,10 +29,5 @@ public class ExternalTaskClientConfig {
     @Bean
     public AuthorizationGenerator authorizationGenerator(){
         return new AuthorizationGenerator();
-    }
-
-    @Bean
-    public UserService userService(){
-        return new UserService();
     }
 }
