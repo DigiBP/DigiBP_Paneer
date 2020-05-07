@@ -132,15 +132,24 @@
     <userTask id="sid-49B0ADD1-D0DB-45ED-A236-75B62F6186E8" name="Validate that every thing is correctly logged" flowable:formFieldValidation="true">
       <incoming>sid-96EAFC0F-1ABE-49B8-B7E1-00367B19A490</incoming>
       <outgoing>sid-B0F55EB8-01B6-4139-B8F6-DBD2082A1BF8</outgoing>
+      <dataOutputAssociation id="DataOutputAssociation_0ky4wra">
+        <targetRef>DataStoreReference_03ohgcp</targetRef>
+      </dataOutputAssociation>
     </userTask>
     <userTask id="sid-3A26AC7E-5F20-4D86-8F61-51F76B63D0C8" name="Verify logging status for customer and mandates" flowable:formFieldValidation="true">
       <incoming>SequenceFlow_0f7dlzu</incoming>
       <outgoing>sid-501C54D6-65CA-4F06-8D41-55242DF759A2</outgoing>
+      <dataOutputAssociation id="DataOutputAssociation_1h8c1it">
+        <targetRef>DataStoreReference_03ohgcp</targetRef>
+      </dataOutputAssociation>
     </userTask>
     <userTask id="sid-5831F6FE-01C0-4B80-A457-9D78A4328032" name="Control time logging" flowable:formFieldValidation="true">
       <incoming>sid-DFCBE6D5-8B8A-4BA6-9F52-18B030E6D0BB</incoming>
       <incoming>sid-D7AE190A-A94A-4C3C-BF25-1580A031FA6B</incoming>
       <outgoing>sid-06C4F7A0-BA32-412E-8009-120AC389ECB8</outgoing>
+      <dataOutputAssociation id="DataOutputAssociation_1mlo8kv">
+        <targetRef>DataStoreReference_03ohgcp</targetRef>
+      </dataOutputAssociation>
       <multiInstanceLoopCharacteristics />
     </userTask>
     <userTask id="sid-B1262BF1-8725-4825-AED2-9FAF332D5855" name="Send Reminder emails for time logging" flowable:formFieldValidation="true">
@@ -182,6 +191,7 @@
       <outgoing>SequenceFlow_063azc8</outgoing>
     </userTask>
     <userTask id="sid-8902ACEB-29F2-4A52-982F-7F3BD4520803" name="Send mail explaining why refused" flowable:formFieldValidation="true" />
+    <dataStoreReference id="DataStoreReference_03ohgcp" name="Jira" />
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_Collaboration">
     <bpmndi:BPMNPlane id="BPMNPlane_Collaboration" bpmnElement="Collaboration">
@@ -457,6 +467,24 @@
       <bpmndi:BPMNShape id="UserTask_1rw45om_di" bpmnElement="Task_0jvtact">
         <omgdc:Bounds x="1377" y="174" width="100" height="80" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_03ohgcp_di" bpmnElement="DataStoreReference_03ohgcp">
+        <omgdc:Bounds x="635" y="365" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="651" y="422" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1mlo8kv_di" bpmnElement="DataOutputAssociation_1mlo8kv">
+        <omgdi:waypoint x="412" y="408" />
+        <omgdi:waypoint x="635" y="387" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1h8c1it_di" bpmnElement="DataOutputAssociation_1h8c1it">
+        <omgdi:waypoint x="563" y="212" />
+        <omgdi:waypoint x="651" y="365" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0ky4wra_di" bpmnElement="DataOutputAssociation_0ky4wra">
+        <omgdi:waypoint x="741" y="211" />
+        <omgdi:waypoint x="676" y="365" />
+      </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </definitions>
