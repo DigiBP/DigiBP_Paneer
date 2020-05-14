@@ -10,10 +10,18 @@
           <text>totalMonthHours</text>
         </inputExpression>
       </input>
+      <input id="InputClause_06swxr8" label="Mandate" camunda:inputVariable="mandateName">
+        <inputExpression id="LiteralExpression_0x27k2o" typeRef="string">
+          <text>mandateName</text>
+        </inputExpression>
+      </input>
       <output id="output_1" label="Decision if it is worth billing" name="decisionWorthBilling" typeRef="string" />
       <rule id="DecisionRule_1r3gjqh">
         <inputEntry id="UnaryTests_07gejev">
           <text>&gt;=10</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0vxt6gm">
+          <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1sf5koy">
           <text>"yes"</text>
@@ -22,6 +30,9 @@
       <rule id="DecisionRule_1tsnot2">
         <inputEntry id="UnaryTests_12f12rb">
           <text>&lt;10</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01pjgu1">
+          <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1qc961y">
           <text>"no"</text>
