@@ -29,7 +29,7 @@ import kong.unirest.Unirest;
 @Component
 public class RetrieveMandateInformationService{
     private Logger logger = Logger.getLogger(RetrieveMandateInformationService.class.getName());
-    @Value("process.getmandate-information-url")
+    @Value("${process.getmandate-information-url}")
     private String getMandateInformationUrl;
 
     @Autowired
