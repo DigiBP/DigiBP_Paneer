@@ -10,12 +10,20 @@ import org.camunda.bpm.engine.delegate.DelegateTask;
 import org.camunda.bpm.engine.delegate.TaskListener;
 import org.camunda.bpm.engine.identity.User;
 import org.camunda.bpm.engine.impl.context.Context;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TaskAssignmentListener implements TaskListener {
 
-    private static final String HOST = "localhost";
-    private static final String USER = "admin@bikinibottom.ch";
-    private static final String PWD = "toomanysecrets";
+    @Value("${config.email-server}")
+    private String emailServer;
+    @Value("${config.email-server-port}")
+    private int emailServerPort;
+    @Value("${config.email-server-user}")
+    private String emailUser;
+    @Value("${config.email-server-password}")
+    private String emailUserPassword;
 
     private final static Logger LOGGER = Logger.getLogger(TaskAssignmentListener.class.getName());
 
@@ -40,12 +48,12 @@ public class TaskAssignmentListener implements TaskListener {
 
                     final Email email = new SimpleEmail();
                     email.setCharset("utf-8");
-                    email.setHostName(HOST);
-                    email.setSmtpPort(1025);
-                    email.setAuthentication(USER, PWD);
+                    email.setHostName(emailServer);
+                    email.setSmtpPort(emailServerPort);
+                    email.setAuthentication(emailUser, emailUserPassword);
 
                     try {
-                        email.setFrom("noreply@cbikinibottom.ch");
+                        email.setFrom("noreply@bikinibottom.ch");
                         email.setSubject("Task assigned: " + delegateTask.getName());
                         email.setMsg(
                                 "Please complete: http://localhost:8080/app/tasklist/default/#/?searchQuery=%5B%5D&filter=" + taskId);

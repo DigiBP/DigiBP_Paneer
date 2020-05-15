@@ -12,3 +12,9 @@ camunda:
 cors:
   enabled: ${CORS_ENABLED:false}
   allowed-origin: ${CORS_ORIGIN:*}
+
+config:
+  email-server: smtp.mailtrap.io
+  email-server-port: 2525
+  email-server-user: bcb6fb7181f39d
+  email-server-password: ad94024cb49e05

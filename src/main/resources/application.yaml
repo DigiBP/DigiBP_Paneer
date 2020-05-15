@@ -22,5 +22,14 @@ spring:
 #      path: /console
 
 ## Uncomment the following lines to change to port number:
-#server:
-#  port: 8081
+camunda-rest:
+  url: ${CAMUNDA_REST_URL:http://localhost:8080/rest}
+
+process:
+  getMandate-information-url: https://hook.integromat.com/gt1w3vgxe0hkqnjgcrr1mfxkyvnsuyvb
+
+config:
+  email-server: localhost
+  email-server-port: 1025
+  email-server-user: admin@bikinibottom.ch
+  email-server-password: toomanysecrets
