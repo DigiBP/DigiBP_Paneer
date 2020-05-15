@@ -15,6 +15,7 @@ import org.camunda.bpm.client.ExternalTaskClient;
 import org.camunda.bpm.client.task.ExternalTask;
 import org.camunda.bpm.client.task.ExternalTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import ch.fhnw.digibp.external.client.mandate.User;
@@ -28,6 +29,8 @@ import kong.unirest.Unirest;
 @Component
 public class RetrieveMandateInformationService{
     private Logger logger = Logger.getLogger(RetrieveMandateInformationService.class.getName());
+    @Value("process.getmandate-information-url")
+    private String getMandateInformationUrl;
 
     @Autowired
     ExternalTaskClient client;
@@ -38,7 +41,7 @@ public class RetrieveMandateInformationService{
                 .tenantIdIn("showcase")
                 .handler((ExternalTask externalTask, ExternalTaskService externalTaskService) -> {
             try {
-                HttpResponse<String> response = Unirest.get("https://putsreq.com/0t35TtKnuiTvpOox3iNo")
+                HttpResponse<String> response = Unirest.get(getMandateInformationUrl)
                 .asString();
 
                 ObjectMapper mapper = new ObjectMapper();
