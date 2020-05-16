@@ -41,11 +41,8 @@ public class RetrieveMandateInformationService{
                 .tenantIdIn("showcase")
                 .handler((ExternalTask externalTask, ExternalTaskService externalTaskService) -> {
             try {
-                HttpResponse<String> response = Unirest.get(getMandateInformationUrl)
-                .asString();
-
-                ObjectMapper mapper = new ObjectMapper();
-                MandateDTO mandateDTO = mapper.readValue(response.getBody(), MandateRootObjectDTO.class).getMandate();
+                String mandateNameCriterion = externalTask.getBusinessKey();
+                MandateDTO mandateDTO = retrieveMandateInformation(mandateNameCriterion);
 
                 Map<String, Object> variables = new HashMap<>();
                 variables.put("mandate", mandateDTO);
@@ -59,6 +56,15 @@ public class RetrieveMandateInformationService{
                 externalTaskService.handleBpmnError(externalTask, "RetrieveMandateInformation");
             }                
         }).open();
+    }
+
+    private MandateDTO retrieveMandateInformation(String mandateNameCriterion) throws com.fasterxml.jackson.core.JsonProcessingException {
+        String getMandateInformationUrlParameter = getMandateInformationUrl.concat("?mandateName=").concat(mandateNameCriterion);
+        HttpResponse<String> response = Unirest.get(getMandateInformationUrlParameter)
+        .asString();
+
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.readValue(response.getBody(), MandateRootObjectDTO.class).getMandate();
     }
 
     private List<String> transformBillableEmployeesToUserList(List<BillableEmployeeDTO> employees){
