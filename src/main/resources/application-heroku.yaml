@@ -17,7 +17,7 @@ cors:
   allowed-origin: ${CORS_ORIGIN:*}
 
 config:
-  email-server: smtp.mailtrap.io
-  email-server-port: 2525
-  email-server-user: bcb6fb7181f39d
-  email-server-password: ad94024cb49e05
+  email-server: ${MAILTRAP_HOST}
+  email-server-port: ${MAILTRAP_PORT}
+  email-server-user: ${MAILTRAP_USERNAME}
+  email-server-password: ${MAILTRAP_PASSWORD}
