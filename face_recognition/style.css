@@ -1,9 +1,20 @@
+html { 
+  background: url(background.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+body {
+  color: #fff;
+}
+
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 	margin-bottom: .5rem;
-	font-family: inherit;
 	font-weight: 500;
 	line-height: 1.2;
-	color: inherit;
+	color: #fff;
 }
 
 .layout {
@@ -21,6 +32,7 @@
   float: right;
   display: block;
   width: 33%;
+  color: #fff;
 }
 .center {
   text-align: center;
@@ -56,6 +68,8 @@ canvas {
   height: 240px;
   margin: 10px auto;
   border: 1px solid #babbbd;
+  background-color: #fff;
+  back
 }
 #capture-btn {
   width: 130px;
