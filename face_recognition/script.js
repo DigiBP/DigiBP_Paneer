@@ -6,6 +6,7 @@ const imagePickerArea = document.querySelector("#pick-image");
 const newImages = document.querySelector("#newImages");
 var image2test = "";
 var faceReturn = "";
+var personName = "";
 
 // Image dimensions
 const width = 320;
@@ -94,7 +95,7 @@ captureButton.addEventListener("click", event => {
     })
     .catch(error => console.log(error));
     setTimeout(() => {  processImage(); }, 1000);
-    get_customer();
+    
 });
 
 window.addEventListener("load", event => startMedia());
@@ -118,20 +119,15 @@ function processImage() {
       // Examine the text in the response
       response.json().then(function(data) {
         console.log(data);
+        personName = data;
         //document.getElementById("personName").innerHTML = data;
         document.getElementById("personName").innerHTML = "";
+        get_customer();
         var btn = document.createElement("BUTTON");
         btn.innerHTML = "Start process as " + data; 
         btn.className = "btn btn-primary";
         btn.id = "startbtn";
-        document.getElementById("personName").appendChild(btn); 
-
-        var select = document.createElement('select');
-        select.appendChild(new Option("my label 1", "my value 1"));
-        select.appendChild(new Option("my label 2", "my value 2"));
-        document.getElementById("personName").appendChild(select);
-
-
+        document.getElementById("leftboxdown").appendChild(btn);
 
         startButton = document.querySelector("#startbtn");
         startButton.addEventListener("click", event => { 
@@ -149,8 +145,13 @@ function processImage() {
 
 
 function start_process() {
-  url = './api/start_process.php?n=' + "Test2";
+  var e = document.getElementById("customerSelect");
+  var selected = e.options[e.selectedIndex].value;
+  console.log(selected);
+  console.log(personName);
+  url = './api/start_process.php?c=' + selected + '&n=' + personName;
   console.log(url);
+  
   
   fetch(url)
   .then(
@@ -194,7 +195,14 @@ function get_customer() {
       // Examine the text in the response
       response.json().then(function(data) {
         console.log(data);
-        
+        var divbox = document.createElement('div');
+        divbox.innerHTML = "Select customer: ";
+        document.getElementById("leftbox").appendChild(divbox);
+        var select = document.createElement('select');
+        data.forEach(item => select.appendChild(new Option(item.Customer, item.Customer)));
+        document.getElementById("leftbox").appendChild(select);
+        select.className = "custom-select";  
+        select.id = "customerSelect"
 
       });
     }

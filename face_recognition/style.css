@@ -1,3 +1,11 @@
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+	margin-bottom: .5rem;
+	font-family: inherit;
+	font-weight: 500;
+	line-height: 1.2;
+	color: inherit;
+}
+
 .layout {
   width: 1000px;
   margin: 100px auto;
@@ -7,6 +15,7 @@
   width: 100;
   position: relative;
   clear: both;
+
 }
 .cell {
   float: right;
@@ -86,4 +95,24 @@ btn.disabled, .btn[disabled], fieldset[disabled] .btn {
   opacity: .65;
   -webkit-box-shadow: none;
   box-shadow: none;
+}
+.custom-select {
+	display: inline-block;
+
+	height: calc(2.25rem);
+	padding: .375rem 1.75rem .375rem .75rem;
+	line-height: 1.5;
+	color: #495057;
+	vertical-align: middle;
+	background: #fff url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E") no-repeat right .75rem center;
+	background-size: 8px 10px;
+	border: 1px solid #ced4da;
+	border-radius: .25rem;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+
+#leftboxdown {
+  margin-top: 10px;
 }

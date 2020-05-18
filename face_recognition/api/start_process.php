@@ -5,19 +5,21 @@ require_once 'HTTP/Request2.php';
 
 //Variables
 $person = $_GET['n'];
+$customer = $_GET['c'];
+$mandate = $_GET['m'];
+$businesskey = $_GET['b'];
 
 //Programm
-$return = startProcess($person);
+$return = startProcess($person, $customer, $mandate);
 
 
 //return the value
-
 echo json_encode($return);
 
 
 
 
-function startProcess($person) {
+function startProcess($person, $customer, $mendate) {
     // This sample uses the Apache HTTP client from HTTP Components (http://hc.apache.org/httpcomponents-client-ga/)
     require_once 'HTTP/Request2.php';
 
@@ -43,10 +45,10 @@ function startProcess($person) {
     
     $request->setBody('{
                         "variables": {
-                             "Mandate": { "value" : "insert_mandate_here", "type": "String"},
-                             "Customer": { "value" : "Krusty_Krab", "type": "String"},
+                             "Mandate": { "value" : "'.$mandate.'", "type": "String"},
+                             "Customer": { "value" : "'.$customer.'", "type": "String"},
                              "Person": { "value" : "'.$person.'", "type": "String"}},
-                        "businessKey": "business key"
+                        "businessKey": "'.$businesskey.'"
                        }');
 
     try
