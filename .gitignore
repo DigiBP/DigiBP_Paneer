@@ -81,3 +81,5 @@ $RECYCLE.BIN/
 .directory
 .Trash-*
 .nfs*
+process/DebugCamunda.bpmn
+process/To-beProcess.bpmn20Javascript.xml

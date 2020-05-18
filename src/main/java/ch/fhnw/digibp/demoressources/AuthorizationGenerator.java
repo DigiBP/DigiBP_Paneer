@@ -209,7 +209,7 @@ public class AuthorizationGenerator {
         headOfMandateTasklistAuth.setResource(APPLICATION);
         authorizationService.saveAuthorization(headOfMandateTasklistAuth);
 
-        Authorization employeeTasklistAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        /**Authorization employeeTasklistAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
         employeeTasklistAuth.setGroupId(GROUP_EMPLOYEE);
         employeeTasklistAuth.addPermission(READ);
         //employeeTasklistAuth.setResourceId("tasklist");
@@ -229,6 +229,6 @@ public class AuthorizationGenerator {
         billingTasklistAuth.addPermission(READ);
         //billingTasklistAuth.setResourceId("tasklist");
         billingTasklistAuth.setResource(TASK);
-        authorizationService.saveAuthorization(billingTasklistAuth);
+        authorizationService.saveAuthorization(billingTasklistAuth);*/
     }
 }
