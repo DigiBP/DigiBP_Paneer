@@ -6,7 +6,7 @@ spring:
 
 camunda-rest:
   url: ${CAMUNDA_REST_URL:https://digibp-paneer.herokuapp.com/rest}
-  tenantid: digibp_paneer
+  tenantid: digibppaneer
 
 camunda:
   bpm:
