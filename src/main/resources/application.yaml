@@ -24,9 +24,10 @@ spring:
 ## Uncomment the following lines to change to port number:
 camunda-rest:
   url: ${CAMUNDA_REST_URL:http://localhost:8080/rest}
+  tenantid: showcase
 
 process:
-  getmandate-information-url: https://hook.integromat.com/gt1w3vgxe0hkqnjgcrr1mfxkyvnsuyvb
+  getmandate-information-url: https://putsreq.com/0t35TtKnuiTvpOox3iNo
 
 config:
   email-server: localhost

@@ -1,17 +1,5 @@
 package ch.fhnw.digibp.demoressources;
 
-import static org.camunda.bpm.engine.authorization.Authorization.ANY;
-import static org.camunda.bpm.engine.authorization.Authorization.AUTH_TYPE_GRANT;
-import static org.camunda.bpm.engine.authorization.Permissions.ALL;
-import static org.camunda.bpm.engine.authorization.Permissions.READ;
-import static org.camunda.bpm.engine.authorization.Permissions.UPDATE;
-import static org.camunda.bpm.engine.authorization.Resources.APPLICATION;
-import static org.camunda.bpm.engine.authorization.Resources.TASK;
-
-import java.util.logging.Logger;
-
-import javax.annotation.PostConstruct;
-
 import org.camunda.bpm.engine.AuthorizationService;
 import org.camunda.bpm.engine.IdentityService;
 import org.camunda.bpm.engine.authorization.Authorization;
@@ -23,9 +11,16 @@ import org.camunda.bpm.engine.identity.Tenant;
 import org.camunda.bpm.engine.identity.User;
 import org.camunda.bpm.engine.impl.persistence.entity.AuthorizationEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import ch.fhnw.digibp.external.ProcessApplication;
+import javax.annotation.PostConstruct;
+import java.util.logging.Logger;
+
+import static org.camunda.bpm.engine.authorization.Authorization.ANY;
+import static org.camunda.bpm.engine.authorization.Authorization.AUTH_TYPE_GRANT;
+import static org.camunda.bpm.engine.authorization.Permissions.ALL;
+import static org.camunda.bpm.engine.authorization.Resources.APPLICATION;
 
 @Component
 public class AuthorizationGenerator {
@@ -52,6 +47,9 @@ public class AuthorizationGenerator {
     @Autowired
     private AuthorizationService authorizationService;
 
+    @Value("${camunda-rest.tenantid}")
+    private String tenantId;
+
     private final static Logger LOGGER = Logger.getLogger(AuthorizationGenerator.class.getName());
 
     @PostConstruct
@@ -69,7 +67,7 @@ public class AuthorizationGenerator {
 
         LOGGER.info("Generating demo data for invoice showcase");
 
-        Tenant tenant = identityService.newTenant(ProcessApplication.TENANT_ID);
+        Tenant tenant = identityService.newTenant(tenantId);
         identityService.saveTenant(tenant);
 
         User user = identityService.newUser(USER_BOB_SQUAREPANTS);

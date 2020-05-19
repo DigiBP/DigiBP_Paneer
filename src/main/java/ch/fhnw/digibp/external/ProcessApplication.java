@@ -8,8 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @EnableProcessApplication
 public class ProcessApplication {
 
-	public static String TENANT_ID = "showcase";
-
 	public static void main(final String[] args) {
 		SpringApplication.run(ProcessApplication.class, args);
 	}

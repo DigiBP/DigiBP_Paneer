@@ -6,6 +6,7 @@ spring:
 
 camunda-rest:
   url: ${CAMUNDA_REST_URL:https://digibp-paneer.herokuapp.com/rest}
+  tenantid: digibp-paneer
 
 camunda:
   bpm:
@@ -16,8 +17,12 @@ cors:
   enabled: ${CORS_ENABLED:false}
   allowed-origin: ${CORS_ORIGIN:*}
 
+process:
+  getmandate-information-url: https://hook.integromat.com/gt1w3vgxe0hkqnjgcrr1mfxkyvnsuyvb
+
 config:
   email-server: ${MAILTRAP_HOST}
   email-server-port: ${MAILTRAP_PORT}
   email-server-user: ${MAILTRAP_USERNAME}
   email-server-password: ${MAILTRAP_PASSWORD}
+
