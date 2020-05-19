@@ -4,37 +4,81 @@
     <extensionElements>
       <biodi:bounds x="150" y="150" width="180" height="80" />
     </extensionElements>
-    <decisionTable id="decisionTable_1">
-      <input id="input_1" label="Total Amount of Hours billable" camunda:inputVariable="totalMonthHours">
-        <inputExpression id="inputExpression_1" typeRef="integer">
-          <text>totalMonthHours</text>
-        </inputExpression>
-      </input>
+    <decisionTable id="decisionTable_1" hitPolicy="FIRST">
       <input id="InputClause_06swxr8" label="Mandate" camunda:inputVariable="mandateName">
         <inputExpression id="LiteralExpression_0x27k2o" typeRef="string">
           <text>mandateName</text>
         </inputExpression>
       </input>
+      <input id="input_1" label="Total Amount of Hours billable" camunda:inputVariable="totalMonthHours">
+        <inputExpression id="inputExpression_1" typeRef="integer">
+          <text>totalMonthHours</text>
+        </inputExpression>
+      </input>
       <output id="output_1" label="Decision if it is worth billing" name="decisionWorthBilling" typeRef="string" />
       <rule id="DecisionRule_1r3gjqh">
+        <inputEntry id="UnaryTests_0vxt6gm">
+          <text>Krusty_Krab</text>
+        </inputEntry>
         <inputEntry id="UnaryTests_07gejev">
           <text>&gt;=10</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0vxt6gm">
-          <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1sf5koy">
           <text>"yes"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1tsnot2">
+        <inputEntry id="UnaryTests_01pjgu1">
+          <text>Krusty_Krab</text>
+        </inputEntry>
         <inputEntry id="UnaryTests_12f12rb">
           <text>&lt;10</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_01pjgu1">
+        <outputEntry id="LiteralExpression_1qc961y">
+          <text>"no"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_19ka7eu">
+        <inputEntry id="UnaryTests_00dde1x">
+          <text>Bikini_Bottom_Police_Department</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1r60asg">
+          <text>&gt;20</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ednx6f">
+          <text>"yes"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1rzxj82">
+        <inputEntry id="UnaryTests_1lsjz87">
+          <text>Bikini_Bottom_Police_Department</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0x8mg38">
+          <text>&lt;=20</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ibqs8k">
+          <text>"no"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1mw95lf">
+        <inputEntry id="UnaryTests_1g3b23b">
           <text></text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_1qc961y">
+        <inputEntry id="UnaryTests_0cct0q8">
+          <text>&gt;3</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1hnvvji">
+          <text>"yes"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1b2kndr">
+        <inputEntry id="UnaryTests_17ky62q">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ugqtee">
+          <text>&lt;=3</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1nc62t3">
           <text>"no"</text>
         </outputEntry>
       </rule>
