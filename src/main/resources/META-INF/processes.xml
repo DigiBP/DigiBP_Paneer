@@ -1,6 +1,6 @@
 <process-application xmlns="http://www.camunda.org/schema/1.0/ProcessApplication">
 
-    <process-archive>
+    <process-archive tenantId="digibppaneer">
         <properties>
             <property name="additionalResourceSuffixes">html,js</property>
         </properties>
