@@ -34,3 +34,4 @@ config:
   email-server-port: 1025
   email-server-user: admin@bikinibottom.ch
   email-server-password: toomanysecrets
+  serverl-url: http://localhost:8080

@@ -25,4 +25,5 @@ config:
   email-server-port: ${MAILTRAP_PORT}
   email-server-user: ${MAILTRAP_USERNAME}
   email-server-password: ${MAILTRAP_PASSWORD}
+  serverl-url: https://digibp-paneer.herokuapp.com/
 

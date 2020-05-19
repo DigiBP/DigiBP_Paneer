@@ -1,8 +1,6 @@
 package ch.fhnw.digibp.external;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.SimpleEmail;
 import org.camunda.bpm.engine.IdentityService;
@@ -12,6 +10,9 @@ import org.camunda.bpm.engine.identity.User;
 import org.camunda.bpm.engine.impl.context.Context;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Component
 public class TaskAssignmentListener implements TaskListener {
@@ -24,6 +25,8 @@ public class TaskAssignmentListener implements TaskListener {
     private String emailUser;
     @Value("${config.email-server-password}")
     private String emailUserPassword;
+    @Value("${config.serverl-url}")
+    private String serverURL;
 
     private final static Logger LOGGER = Logger.getLogger(TaskAssignmentListener.class.getName());
 
@@ -32,6 +35,7 @@ public class TaskAssignmentListener implements TaskListener {
 
         final String assignee = delegateTask.getAssignee();
         final String taskId = delegateTask.getId();
+        final Object billingDocumentsFolder = delegateTask.getVariable("billingDocumentsFolder");
 
         if (assignee != null) {
 
@@ -52,11 +56,16 @@ public class TaskAssignmentListener implements TaskListener {
                     email.setSmtpPort(emailServerPort);
                     email.setAuthentication(emailUser, emailUserPassword);
 
+                    StringBuffer messageBuffer = new StringBuffer("Please complete: ");
+                    messageBuffer.append(serverURL).append("/app/tasklist/default/#/?searchQuery=%5B%5D&filter=").append(taskId);
+                    if(null != billingDocumentsFolder){
+                        messageBuffer.append(System.lineSeparator()).append("Folder link for billing documents: ").append(billingDocumentsFolder.toString());
+                    }
+
                     try {
                         email.setFrom("noreply@bikinibottom.ch");
                         email.setSubject("Task assigned: " + delegateTask.getName());
-                        email.setMsg(
-                                "Please complete: http://localhost:8080/app/tasklist/default/#/?searchQuery=%5B%5D&filter=" + taskId);
+                        email.setMsg(messageBuffer.toString());
 
                         email.addTo(recipient);
 

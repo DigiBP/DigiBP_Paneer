@@ -98,6 +98,11 @@
               <camunda:constraint name="readonly" />
             </camunda:validation>
           </camunda:formField>
+          <camunda:formField id="billingDocumentsLink" label="Folder link for billing documents:" type="string" defaultValue="${billingDocumentsFolder}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
         </camunda:formData>
         <camunda:taskListener class="ch.fhnw.digibp.external.TaskAssignmentListener" event="create" id="reportsReady" />
         <camunda:inputOutput>
@@ -120,6 +125,13 @@
     <userTask id="sid-D37B5D9D-1E96-4A88-B8D2-B70E0B76823E" name="Adapt spelling and phrasing for ${mandate.name}" camunda:candidateGroups="servicedesk" flowable:formFieldValidation="true">
       <extensionElements>
         <camunda:taskListener class="ch.fhnw.digibp.external.TaskAssignmentListener" event="create" id="polishReports" />
+        <camunda:formData>
+          <camunda:formField id="billingDocumentsLink" label="Folder link for billing documents:" type="string" defaultValue="${billingDocumentsFolder}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+        </camunda:formData>
       </extensionElements>
       <dataOutputAssociation id="DataOutputAssociation_1aq3kqf">
         <targetRef>DataStoreReference_0k72sif</targetRef>
@@ -130,6 +142,11 @@
         <camunda:formData>
           <camunda:formField id="reportsConsistent" label="Can we send the reports to customers" type="boolean" defaultValue="false" />
           <camunda:formField id="explanationwhyRefused" label="Explanation" type="string" defaultValue="Why it&#39;s not compliant" />
+          <camunda:formField id="billingDocumentsLink" label="Folder link for billing documents:" type="string" defaultValue="${billingDocumentsFolder}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
         </camunda:formData>
         <camunda:taskListener class="ch.fhnw.digibp.external.TaskAssignmentListener" event="create" id="readyForBilling" />
       </extensionElements>
@@ -169,14 +186,29 @@
         <targetRef>DataStoreReference_0dcwsjt</targetRef>
       </dataOutputAssociation>
     </userTask>
-    <serviceTask id="sid-4E66B97C-3D7C-4F88-BDB3-99F31BC9FB42" name="Trigger &#34;PDF Generator App&#34;" camunda:expression="true">
+    <serviceTask id="sid-4E66B97C-3D7C-4F88-BDB3-99F31BC9FB42" name="Trigger &#34;PDF Generator App&#34;">
       <extensionElements>
-        <camunda:inputOutput>
-          <camunda:inputParameter name="method">POST</camunda:inputParameter>
-          <camunda:inputParameter name="url">integromat.com/webhook</camunda:inputParameter>
-          <camunda:inputParameter name="connector">http-connector</camunda:inputParameter>
-          <camunda:inputParameter name="name">${mandate.name}</camunda:inputParameter>
-        </camunda:inputOutput>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="method">POST</camunda:inputParameter>
+            <camunda:inputParameter name="url">https://hook.integromat.com/a06k3hxa50l2v5xjonlv7gjfaw33ddcn</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/json</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="payload">
+              <camunda:script scriptFormat="JavaScript">out = JSON.stringify({
+	"mandateName":mandate.name
+})</camunda:script>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="billingDocumentsFolder">
+              <camunda:script scriptFormat="JavaScript">object=JSON.parse(response);
+billingDocumentsFolder=object.billingFolder;</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
       </extensionElements>
       <incoming>sid-654D3BB2-619F-49DB-9CBD-2B09298A4706</incoming>
       <outgoing>sid-58E312D0-9272-4FC2-84D7-43334D245247</outgoing>
