@@ -18,7 +18,7 @@
       <output id="output_1" label="Decision if it is worth billing" name="decisionWorthBilling" typeRef="string" />
       <rule id="DecisionRule_1r3gjqh">
         <inputEntry id="UnaryTests_0vxt6gm">
-          <text>Krusty_Krab</text>
+          <text>"Krusty_Krab"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_07gejev">
           <text>&gt;=10</text>
@@ -29,7 +29,7 @@
       </rule>
       <rule id="DecisionRule_1tsnot2">
         <inputEntry id="UnaryTests_01pjgu1">
-          <text>Krusty_Krab</text>
+          <text>"Krusty_Krab"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_12f12rb">
           <text>&lt;10</text>
@@ -40,7 +40,7 @@
       </rule>
       <rule id="DecisionRule_19ka7eu">
         <inputEntry id="UnaryTests_00dde1x">
-          <text>Bikini_Bottom_Police_Department</text>
+          <text>"Bikini_Bottom_Police_Department"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1r60asg">
           <text>&gt;20</text>
@@ -51,7 +51,7 @@
       </rule>
       <rule id="DecisionRule_1rzxj82">
         <inputEntry id="UnaryTests_1lsjz87">
-          <text>Bikini_Bottom_Police_Department</text>
+          <text>"Bikini_Bottom_Police_Department"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0x8mg38">
           <text>&lt;=20</text>
