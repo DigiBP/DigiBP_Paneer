@@ -12,6 +12,8 @@ camunda:
   bpm:
     admin-user:
       password: ${CAMUNDA_ADMIN_PASSWORD:demo}
+    authorization:
+      enabled: true
 
 cors:
   enabled: ${CORS_ENABLED:false}
