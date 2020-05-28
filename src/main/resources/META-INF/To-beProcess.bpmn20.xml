@@ -21,10 +21,10 @@
       <lane id="sid-D2A35009-8D48-4FFE-8DC0-85119ECBFDEE" name="Billing">
         <flowNodeRef>sid-D1EB8FFB-12FA-4203-886F-BB8B695EAF69</flowNodeRef>
         <flowNodeRef>sid-EDB876F4-F0C7-44DC-A398-A3C9F2BF0694</flowNodeRef>
-        <flowNodeRef>sid-E763C1EA-042A-47CA-B0C4-CE1BD0D38E1F</flowNodeRef>
-        <flowNodeRef>sid-3EEE9115-7AC3-4B30-85CB-AC462E03D3C7</flowNodeRef>
         <flowNodeRef>EndEvent_1cp1y61</flowNodeRef>
         <flowNodeRef>SubProcess_Billing</flowNodeRef>
+        <flowNodeRef>sid-E763C1EA-042A-47CA-B0C4-CE1BD0D38E1F</flowNodeRef>
+        <flowNodeRef>sid-3EEE9115-7AC3-4B30-85CB-AC462E03D3C7</flowNodeRef>
       </lane>
       <lane id="sid-A10C91E6-0857-4A63-B616-BC32308C970B" name="Service Desk">
         <flowNodeRef>sid-8983949C-E2C1-4DDE-94DF-80E6C8ED6441</flowNodeRef>
@@ -46,8 +46,6 @@
         <flowNodeRef>Task_1e58udj</flowNodeRef>
         <flowNodeRef>sid-B1262BF1-8725-4825-AED2-9FAF332D5855</flowNodeRef>
         <flowNodeRef>sid-4AE18632-ACD1-4582-B884-C4CED0FE692A</flowNodeRef>
-        <flowNodeRef>sid-1AA78D20-1DC7-495C-9AC3-53081966DE75</flowNodeRef>
-        <flowNodeRef>sid-74EAC26F-176C-4A66-97CE-C1882924EC36</flowNodeRef>
         <flowNodeRef>sid-BD58DBA1-EC3E-4E68-B9A0-740348682DD2</flowNodeRef>
         <flowNodeRef>StartEvent_1x3gyb1</flowNodeRef>
         <flowNodeRef>sid-DB37B3DF-F943-46FF-9261-65FF70BDEB9C</flowNodeRef>
@@ -55,6 +53,11 @@
         <flowNodeRef>sid-AAE5C533-B69A-4C8F-9F76-9271D6A5DFF4</flowNodeRef>
         <flowNodeRef>sid-49B0ADD1-D0DB-45ED-A236-75B62F6186E8</flowNodeRef>
         <flowNodeRef>sid-4E66B97C-3D7C-4F88-BDB3-99F31BC9FB42</flowNodeRef>
+        <flowNodeRef>sid-1AA78D20-1DC7-495C-9AC3-53081966DE75</flowNodeRef>
+        <flowNodeRef>sid-74EAC26F-176C-4A66-97CE-C1882924EC36</flowNodeRef>
+        <flowNodeRef>Task_05pj167</flowNodeRef>
+        <flowNodeRef>SendTask_1i8h25b</flowNodeRef>
+        <flowNodeRef>SendTask_0oslgxs</flowNodeRef>
       </lane>
     </laneSet>
     <serviceTask id="Task_1e58udj" name="Gather Mandate Information" camunda:type="external" camunda:topic="RetrieveMandateInformation">
@@ -89,82 +92,10 @@
       <incoming>sid-67FCA96A-299A-4686-8E36-68656DA5002D</incoming>
       <outgoing>sid-DCFB17D8-94D9-4938-BCA0-2324AEDE0F63</outgoing>
     </businessRuleTask>
-    <userTask id="sid-1AA78D20-1DC7-495C-9AC3-53081966DE75" name="Validate reports for ${mandate.name}&#10;and see if it needs polishing" camunda:assignee="${clientManagerUsername}" flowable:formFieldValidation="true">
-      <extensionElements>
-        <camunda:formData>
-          <camunda:formField id="reportsNeedPolishing" label="Do the reports need polishing from service desk" type="boolean" defaultValue="true" />
-          <camunda:formField id="explanationwhyRefusedForm" label="Explanation why refused by billing" type="string" defaultValue="${explanationwhyRefusedLocal}">
-            <camunda:validation>
-              <camunda:constraint name="readonly" />
-            </camunda:validation>
-          </camunda:formField>
-          <camunda:formField id="billingDocumentsLink" label="Folder link for billing documents:" type="string" defaultValue="${billingDocumentsFolder}">
-            <camunda:validation>
-              <camunda:constraint name="readonly" />
-            </camunda:validation>
-          </camunda:formField>
-        </camunda:formData>
-        <camunda:taskListener class="ch.fhnw.digibp.external.TaskAssignmentListener" event="create" id="reportsReady" />
-        <camunda:inputOutput>
-          <camunda:inputParameter name="explanationwhyRefusedLocal">
-            <camunda:script scriptFormat="JavaScript">if(typeof explanationwhyRefused == 'undefined'){
- explanationwhyRefusedLocal = "";
-} else {
- explanationwhyRefusedLocal = explanationwhyRefused;
-}</camunda:script>
-          </camunda:inputParameter>
-        </camunda:inputOutput>
-      </extensionElements>
-      <incoming>sid-EDB876F4-F0C7-44DC-A398-A3C9F2BF0694</incoming>
-      <incoming>sid-58E312D0-9272-4FC2-84D7-43334D245247</incoming>
-      <dataOutputAssociation id="DataOutputAssociation_1ue3zv9">
-        <targetRef>DataStoreReference_0k72sif</targetRef>
-      </dataOutputAssociation>
-    </userTask>
-    <exclusiveGateway id="sid-74EAC26F-176C-4A66-97CE-C1882924EC36" />
-    <userTask id="sid-D37B5D9D-1E96-4A88-B8D2-B70E0B76823E" name="Adapt spelling and phrasing for ${mandate.name}" camunda:candidateGroups="servicedesk" flowable:formFieldValidation="true">
-      <extensionElements>
-        <camunda:taskListener class="ch.fhnw.digibp.external.TaskAssignmentListener" event="create" id="polishReports" />
-        <camunda:formData>
-          <camunda:formField id="billingDocumentsLink" label="Folder link for billing documents:" type="string" defaultValue="${billingDocumentsFolder}">
-            <camunda:validation>
-              <camunda:constraint name="readonly" />
-            </camunda:validation>
-          </camunda:formField>
-        </camunda:formData>
-      </extensionElements>
-      <dataOutputAssociation id="DataOutputAssociation_1aq3kqf">
-        <targetRef>DataStoreReference_0k72sif</targetRef>
-      </dataOutputAssociation>
-    </userTask>
-    <userTask id="sid-E763C1EA-042A-47CA-B0C4-CE1BD0D38E1F" name="Check consistency for ${mandate.name}" camunda:candidateGroups="billing" flowable:formFieldValidation="true">
-      <extensionElements>
-        <camunda:formData>
-          <camunda:formField id="reportsConsistent" label="Can we send the reports to customers" type="boolean" defaultValue="false" />
-          <camunda:formField id="explanationwhyRefused" label="Explanation" type="string" defaultValue="Why it&#39;s not compliant" />
-          <camunda:formField id="billingDocumentsLink" label="Folder link for billing documents:" type="string" defaultValue="${billingDocumentsFolder}">
-            <camunda:validation>
-              <camunda:constraint name="readonly" />
-            </camunda:validation>
-          </camunda:formField>
-        </camunda:formData>
-        <camunda:taskListener class="ch.fhnw.digibp.external.TaskAssignmentListener" event="create" id="readyForBilling" />
-      </extensionElements>
-      <incoming>sid-80A661BD-A1D2-4C9E-B200-5A961A69DF7A</incoming>
-      <dataOutputAssociation id="DataOutputAssociation_04q94wp">
-        <targetRef>DataStoreReference_0k72sif</targetRef>
-      </dataOutputAssociation>
-    </userTask>
-    <exclusiveGateway id="sid-3EEE9115-7AC3-4B30-85CB-AC462E03D3C7">
-      <outgoing>SequenceFlow_1tw3500</outgoing>
-    </exclusiveGateway>
-    <endEvent id="EndEvent_1cp1y61">
-      <incoming>SequenceFlow_00ajp93</incoming>
-    </endEvent>
     <exclusiveGateway id="sid-BD58DBA1-EC3E-4E68-B9A0-740348682DD2">
       <outgoing>sid-67FCA96A-299A-4686-8E36-68656DA5002D</outgoing>
     </exclusiveGateway>
-    <dataStoreReference id="DataStoreReference_0dcwsjt" name="Jira" />
+    <dataStoreReference id="DataStoreReference_0dcwsjt" name="Hour storage" />
     <startEvent id="StartEvent_1x3gyb1">
       <outgoing>SequenceFlow_1lc2llc</outgoing>
       <messageEventDefinition id="MessageEventDefinition_0fpfspg" messageRef="Message_07t5n5v" />
@@ -219,6 +150,77 @@ billingDocumentsFolder=object.billingFolder;</camunda:script>
         <targetRef>DataStoreReference_0k72sif</targetRef>
       </dataOutputAssociation>
     </serviceTask>
+    <sequenceFlow id="sid-D7AE190A-A94A-4C3C-BF25-1580A031FA6B" name="not ok" sourceRef="sid-BD58DBA1-EC3E-4E68-B9A0-740348682DD2" targetRef="sid-5831F6FE-01C0-4B80-A457-9D78A4328032">
+      <conditionExpression xsi:type="tFormalExpression">${!everythingCorrectlyLogged}</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-DFCBE6D5-8B8A-4BA6-9F52-18B030E6D0BB" sourceRef="sid-B1262BF1-8725-4825-AED2-9FAF332D5855" targetRef="sid-5831F6FE-01C0-4B80-A457-9D78A4328032" />
+    <sequenceFlow id="SequenceFlow_1mmuk1w" sourceRef="sid-5831F6FE-01C0-4B80-A457-9D78A4328032" targetRef="sid-49B0ADD1-D0DB-45ED-A236-75B62F6186E8" />
+    <sequenceFlow id="SequenceFlow_0uvpnvz" sourceRef="Task_1e58udj" targetRef="sid-B1262BF1-8725-4825-AED2-9FAF332D5855" />
+    <sequenceFlow id="SequenceFlow_1lc2llc" sourceRef="StartEvent_1x3gyb1" targetRef="Task_1e58udj" />
+    <sequenceFlow id="sid-B0F55EB8-01B6-4139-B8F6-DBD2082A1BF8" sourceRef="sid-49B0ADD1-D0DB-45ED-A236-75B62F6186E8" targetRef="sid-BD58DBA1-EC3E-4E68-B9A0-740348682DD2" />
+    <sequenceFlow id="sid-DCFB17D8-94D9-4938-BCA0-2324AEDE0F63" sourceRef="sid-4AE18632-ACD1-4582-B884-C4CED0FE692A" targetRef="sid-DB37B3DF-F943-46FF-9261-65FF70BDEB9C" />
+    <sequenceFlow id="sid-F369B5C8-11DA-42ED-8488-C976C3344623" name="no" sourceRef="sid-DB37B3DF-F943-46FF-9261-65FF70BDEB9C" targetRef="sid-E54A62A9-B1AF-4ACE-AF7A-199539CDE4B9">
+      <conditionExpression xsi:type="tFormalExpression">${isWorthBilling == "no"}</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-654D3BB2-619F-49DB-9CBD-2B09298A4706" name="yes" sourceRef="sid-DB37B3DF-F943-46FF-9261-65FF70BDEB9C" targetRef="sid-4E66B97C-3D7C-4F88-BDB3-99F31BC9FB42">
+      <conditionExpression xsi:type="tFormalExpression">${isWorthBilling == "yes"}</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-CACA64A1-2037-4DDC-85FF-FBFC172AD8F7" sourceRef="sid-E54A62A9-B1AF-4ACE-AF7A-199539CDE4B9" targetRef="sid-AAE5C533-B69A-4C8F-9F76-9271D6A5DFF4" />
+    <sequenceFlow id="sid-67FCA96A-299A-4686-8E36-68656DA5002D" name="ok" sourceRef="sid-BD58DBA1-EC3E-4E68-B9A0-740348682DD2" targetRef="sid-4AE18632-ACD1-4582-B884-C4CED0FE692A">
+      <conditionExpression xsi:type="tFormalExpression">${everythingCorrectlyLogged}</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-58E312D0-9272-4FC2-84D7-43334D245247" sourceRef="sid-4E66B97C-3D7C-4F88-BDB3-99F31BC9FB42" targetRef="Task_05pj167" />
+    <userTask id="sid-1AA78D20-1DC7-495C-9AC3-53081966DE75" name="Validate reports for ${mandate.name}&#10;and see if it needs polishing" camunda:assignee="${clientManagerUsername}" flowable:formFieldValidation="true">
+      <extensionElements>
+        <camunda:formData>
+          <camunda:formField id="reportsNeedPolishing" label="Do the reports need polishing from service desk" type="boolean" defaultValue="true" />
+          <camunda:formField id="explanationwhyRefusedForm" label="Explanation why refused by billing" type="string" defaultValue="${explanationwhyRefusedLocal}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="billingDocumentsLink" label="Folder link for billing documents:" type="string" defaultValue="${billingDocumentsFolder}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+        </camunda:formData>
+        <camunda:taskListener class="ch.fhnw.digibp.external.TaskAssignmentListener" event="create" id="reportsReady" />
+        <camunda:inputOutput>
+          <camunda:inputParameter name="explanationwhyRefusedLocal">
+            <camunda:script scriptFormat="JavaScript">if(typeof explanationwhyRefused == 'undefined'){
+ explanationwhyRefusedLocal = "";
+} else {
+ explanationwhyRefusedLocal = explanationwhyRefused;
+}</camunda:script>
+          </camunda:inputParameter>
+        </camunda:inputOutput>
+      </extensionElements>
+      <incoming>SequenceFlow_17vmrcj</incoming>
+      <dataOutputAssociation id="DataOutputAssociation_1ue3zv9">
+        <targetRef>DataStoreReference_0k72sif</targetRef>
+      </dataOutputAssociation>
+    </userTask>
+    <exclusiveGateway id="sid-74EAC26F-176C-4A66-97CE-C1882924EC36" />
+    <userTask id="sid-D37B5D9D-1E96-4A88-B8D2-B70E0B76823E" name="Adapt spelling and phrasing for ${mandate.name}" camunda:candidateGroups="servicedesk" flowable:formFieldValidation="true">
+      <extensionElements>
+        <camunda:taskListener class="ch.fhnw.digibp.external.TaskAssignmentListener" event="create" id="polishReports" />
+        <camunda:formData>
+          <camunda:formField id="billingDocumentsLink" label="Folder link for billing documents:" type="string" defaultValue="${billingDocumentsFolder}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+        </camunda:formData>
+      </extensionElements>
+      <incoming>SequenceFlow_12dfb4n</incoming>
+      <dataOutputAssociation id="DataOutputAssociation_1aq3kqf">
+        <targetRef>DataStoreReference_0k72sif</targetRef>
+      </dataOutputAssociation>
+    </userTask>
+    <endEvent id="EndEvent_1cp1y61">
+      <incoming>SequenceFlow_00ajp93</incoming>
+    </endEvent>
     <subProcess id="SubProcess_Billing">
       <incoming>SequenceFlow_1tw3500</incoming>
       <outgoing>SequenceFlow_00ajp93</outgoing>
@@ -240,31 +242,15 @@ billingDocumentsFolder=object.billingFolder;</camunda:script>
       <sequenceFlow id="SequenceFlow_0bn7sdb" sourceRef="sid-F6427C25-90EF-4B24-BA87-498754AC8A71" targetRef="sid-066558BB-3A6F-43F4-BE42-BE5B2F224DE9" />
       <sequenceFlow id="SequenceFlow_1xsi604" sourceRef="sid-066558BB-3A6F-43F4-BE42-BE5B2F224DE9" targetRef="EndEvent_10mxv9y" />
     </subProcess>
-    <sequenceFlow id="sid-D7AE190A-A94A-4C3C-BF25-1580A031FA6B" name="not ok" sourceRef="sid-BD58DBA1-EC3E-4E68-B9A0-740348682DD2" targetRef="sid-5831F6FE-01C0-4B80-A457-9D78A4328032">
-      <conditionExpression xsi:type="tFormalExpression">${!everythingCorrectlyLogged}</conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="sid-DFCBE6D5-8B8A-4BA6-9F52-18B030E6D0BB" sourceRef="sid-B1262BF1-8725-4825-AED2-9FAF332D5855" targetRef="sid-5831F6FE-01C0-4B80-A457-9D78A4328032" />
-    <sequenceFlow id="SequenceFlow_1mmuk1w" sourceRef="sid-5831F6FE-01C0-4B80-A457-9D78A4328032" targetRef="sid-49B0ADD1-D0DB-45ED-A236-75B62F6186E8" />
-    <sequenceFlow id="SequenceFlow_0uvpnvz" sourceRef="Task_1e58udj" targetRef="sid-B1262BF1-8725-4825-AED2-9FAF332D5855" />
-    <sequenceFlow id="SequenceFlow_1lc2llc" sourceRef="StartEvent_1x3gyb1" targetRef="Task_1e58udj" />
-    <sequenceFlow id="sid-B0F55EB8-01B6-4139-B8F6-DBD2082A1BF8" sourceRef="sid-49B0ADD1-D0DB-45ED-A236-75B62F6186E8" targetRef="sid-BD58DBA1-EC3E-4E68-B9A0-740348682DD2" />
-    <sequenceFlow id="sid-DCFB17D8-94D9-4938-BCA0-2324AEDE0F63" sourceRef="sid-4AE18632-ACD1-4582-B884-C4CED0FE692A" targetRef="sid-DB37B3DF-F943-46FF-9261-65FF70BDEB9C" />
-    <sequenceFlow id="sid-F369B5C8-11DA-42ED-8488-C976C3344623" name="no" sourceRef="sid-DB37B3DF-F943-46FF-9261-65FF70BDEB9C" targetRef="sid-E54A62A9-B1AF-4ACE-AF7A-199539CDE4B9">
-      <conditionExpression xsi:type="tFormalExpression">${isWorthBilling == "no"}</conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="sid-654D3BB2-619F-49DB-9CBD-2B09298A4706" name="yes" sourceRef="sid-DB37B3DF-F943-46FF-9261-65FF70BDEB9C" targetRef="sid-4E66B97C-3D7C-4F88-BDB3-99F31BC9FB42">
-      <conditionExpression xsi:type="tFormalExpression">${isWorthBilling == "yes"}</conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="sid-CACA64A1-2037-4DDC-85FF-FBFC172AD8F7" sourceRef="sid-E54A62A9-B1AF-4ACE-AF7A-199539CDE4B9" targetRef="sid-AAE5C533-B69A-4C8F-9F76-9271D6A5DFF4" />
-    <sequenceFlow id="sid-8983949C-E2C1-4DDE-94DF-80E6C8ED6441" sourceRef="sid-D37B5D9D-1E96-4A88-B8D2-B70E0B76823E" targetRef="sid-1AA78D20-1DC7-495C-9AC3-53081966DE75" />
-    <sequenceFlow id="sid-EDB876F4-F0C7-44DC-A398-A3C9F2BF0694" name="not ok" sourceRef="sid-3EEE9115-7AC3-4B30-85CB-AC462E03D3C7" targetRef="sid-1AA78D20-1DC7-495C-9AC3-53081966DE75">
+    <sequenceFlow id="sid-8983949C-E2C1-4DDE-94DF-80E6C8ED6441" sourceRef="sid-D37B5D9D-1E96-4A88-B8D2-B70E0B76823E" targetRef="Task_05pj167" />
+    <sequenceFlow id="sid-EDB876F4-F0C7-44DC-A398-A3C9F2BF0694" name="not ok" sourceRef="sid-3EEE9115-7AC3-4B30-85CB-AC462E03D3C7" targetRef="Task_05pj167">
       <conditionExpression xsi:type="tFormalExpression">${reportsConsistent == "false"}</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-C1EE4A9D-E452-4F36-BCA6-B3F9932A6722" sourceRef="sid-1AA78D20-1DC7-495C-9AC3-53081966DE75" targetRef="sid-74EAC26F-176C-4A66-97CE-C1882924EC36" />
-    <sequenceFlow id="sid-D51C7797-7862-4984-9DE9-8C6F9542E4AF" name="needs polishing" sourceRef="sid-74EAC26F-176C-4A66-97CE-C1882924EC36" targetRef="sid-D37B5D9D-1E96-4A88-B8D2-B70E0B76823E">
+    <sequenceFlow id="sid-D51C7797-7862-4984-9DE9-8C6F9542E4AF" name="needs polishing" sourceRef="sid-74EAC26F-176C-4A66-97CE-C1882924EC36" targetRef="SendTask_1i8h25b">
       <conditionExpression xsi:type="tFormalExpression">${reportsNeedPolishing == "true"}</conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="sid-80A661BD-A1D2-4C9E-B200-5A961A69DF7A" name="ok" sourceRef="sid-74EAC26F-176C-4A66-97CE-C1882924EC36" targetRef="sid-E763C1EA-042A-47CA-B0C4-CE1BD0D38E1F">
+    <sequenceFlow id="sid-80A661BD-A1D2-4C9E-B200-5A961A69DF7A" name="ok" sourceRef="sid-74EAC26F-176C-4A66-97CE-C1882924EC36" targetRef="SendTask_0oslgxs">
       <conditionExpression xsi:type="tFormalExpression">${reportsNeedPolishing == "false"}</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-D1EB8FFB-12FA-4203-886F-BB8B695EAF69" sourceRef="sid-E763C1EA-042A-47CA-B0C4-CE1BD0D38E1F" targetRef="sid-3EEE9115-7AC3-4B30-85CB-AC462E03D3C7" />
@@ -272,28 +258,62 @@ billingDocumentsFolder=object.billingFolder;</camunda:script>
       <conditionExpression xsi:type="tFormalExpression">${reportsConsistent == "true"}</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="SequenceFlow_00ajp93" sourceRef="SubProcess_Billing" targetRef="EndEvent_1cp1y61" />
-    <sequenceFlow id="sid-67FCA96A-299A-4686-8E36-68656DA5002D" name="ok" sourceRef="sid-BD58DBA1-EC3E-4E68-B9A0-740348682DD2" targetRef="sid-4AE18632-ACD1-4582-B884-C4CED0FE692A">
-      <conditionExpression xsi:type="tFormalExpression">${everythingCorrectlyLogged}</conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="sid-58E312D0-9272-4FC2-84D7-43334D245247" sourceRef="sid-4E66B97C-3D7C-4F88-BDB3-99F31BC9FB42" targetRef="sid-1AA78D20-1DC7-495C-9AC3-53081966DE75" />
+    <sequenceFlow id="SequenceFlow_17vmrcj" sourceRef="Task_05pj167" targetRef="sid-1AA78D20-1DC7-495C-9AC3-53081966DE75" />
+    <sendTask id="Task_05pj167" name="Send notification that reports are ready">
+      <incoming>sid-58E312D0-9272-4FC2-84D7-43334D245247</incoming>
+      <incoming>sid-8983949C-E2C1-4DDE-94DF-80E6C8ED6441</incoming>
+      <incoming>sid-EDB876F4-F0C7-44DC-A398-A3C9F2BF0694</incoming>
+      <outgoing>SequenceFlow_17vmrcj</outgoing>
+    </sendTask>
+    <userTask id="sid-E763C1EA-042A-47CA-B0C4-CE1BD0D38E1F" name="Check consistency for ${mandate.name}" camunda:candidateGroups="billing" flowable:formFieldValidation="true">
+      <extensionElements>
+        <camunda:formData>
+          <camunda:formField id="reportsConsistent" label="Can we send the reports to customers" type="boolean" defaultValue="false" />
+          <camunda:formField id="explanationwhyRefused" label="Explanation" type="string" defaultValue="Why it&#39;s not compliant" />
+          <camunda:formField id="billingDocumentsLink" label="Folder link for billing documents:" type="string" defaultValue="${billingDocumentsFolder}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+        </camunda:formData>
+        <camunda:taskListener class="ch.fhnw.digibp.external.TaskAssignmentListener" event="create" id="readyForBilling" />
+      </extensionElements>
+      <incoming>SequenceFlow_0cgl13q</incoming>
+      <dataOutputAssociation id="DataOutputAssociation_04q94wp">
+        <targetRef>DataStoreReference_0k72sif</targetRef>
+      </dataOutputAssociation>
+    </userTask>
+    <sendTask id="SendTask_1i8h25b" name="Send notification that reports are ready">
+      <incoming>sid-D51C7797-7862-4984-9DE9-8C6F9542E4AF</incoming>
+      <outgoing>SequenceFlow_12dfb4n</outgoing>
+    </sendTask>
+    <sequenceFlow id="SequenceFlow_12dfb4n" sourceRef="SendTask_1i8h25b" targetRef="sid-D37B5D9D-1E96-4A88-B8D2-B70E0B76823E" />
+    <sendTask id="SendTask_0oslgxs" name="Send notification that reports are ready">
+      <incoming>sid-80A661BD-A1D2-4C9E-B200-5A961A69DF7A</incoming>
+      <outgoing>SequenceFlow_0cgl13q</outgoing>
+    </sendTask>
+    <sequenceFlow id="SequenceFlow_0cgl13q" sourceRef="SendTask_0oslgxs" targetRef="sid-E763C1EA-042A-47CA-B0C4-CE1BD0D38E1F" />
+    <exclusiveGateway id="sid-3EEE9115-7AC3-4B30-85CB-AC462E03D3C7">
+      <outgoing>SequenceFlow_1tw3500</outgoing>
+    </exclusiveGateway>
   </process>
   <message id="Message_07t5n5v" name="Message_0n8rm01" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_Collaboration">
     <bpmndi:BPMNPlane id="BPMNPlane_Collaboration" bpmnElement="Collaboration">
       <bpmndi:BPMNShape id="BPMNShape_sid-ABCB7757-1BDD-4955-BDDE-07C339410343" bpmnElement="sid-ABCB7757-1BDD-4955-BDDE-07C339410343" isHorizontal="true">
-        <omgdc:Bounds x="321" y="400" width="1937" height="922" />
+        <omgdc:Bounds x="321" y="400" width="2067" height="922" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_sid-3BFDCBAF-63D9-411A-BE57-09889CA92F24" bpmnElement="sid-3BFDCBAF-63D9-411A-BE57-09889CA92F24" isHorizontal="true">
-        <omgdc:Bounds x="351" y="400" width="1907" height="300" />
+        <omgdc:Bounds x="351" y="400" width="2037" height="300" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_sid-49B0ADD1-D0DB-45ED-A236-75B62F6186E8" bpmnElement="sid-49B0ADD1-D0DB-45ED-A236-75B62F6186E8">
         <omgdc:Bounds x="620" y="472" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_sid-1AA78D20-1DC7-495C-9AC3-53081966DE75" bpmnElement="sid-1AA78D20-1DC7-495C-9AC3-53081966DE75">
-        <omgdc:Bounds x="1198" y="472" width="100" height="80" />
+        <omgdc:Bounds x="1328" y="472" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_sid-74EAC26F-176C-4A66-97CE-C1882924EC36" bpmnElement="sid-74EAC26F-176C-4A66-97CE-C1882924EC36" isMarkerVisible="true">
-        <omgdc:Bounds x="1318" y="492" width="40" height="40" />
+        <omgdc:Bounds x="1448" y="492" width="40" height="40" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_sid-BD58DBA1-EC3E-4E68-B9A0-740348682DD2" bpmnElement="sid-BD58DBA1-EC3E-4E68-B9A0-740348682DD2" isMarkerVisible="true">
         <omgdc:Bounds x="739" y="492" width="40" height="40" />
@@ -308,45 +328,45 @@ billingDocumentsFolder=object.billingFolder;</camunda:script>
         <omgdc:Bounds x="1080" y="612" width="28" height="28" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_sid-A10C91E6-0857-4A63-B616-BC32308C970B" bpmnElement="sid-A10C91E6-0857-4A63-B616-BC32308C970B" isHorizontal="true">
-        <omgdc:Bounds x="351" y="940" width="1907" height="142" />
+        <omgdc:Bounds x="351" y="940" width="2037" height="142" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_sid-D37B5D9D-1E96-4A88-B8D2-B70E0B76823E" bpmnElement="sid-D37B5D9D-1E96-4A88-B8D2-B70E0B76823E">
-        <omgdc:Bounds x="1289" y="972" width="100" height="80" />
+        <omgdc:Bounds x="1419" y="972" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_sid-D2A35009-8D48-4FFE-8DC0-85119ECBFDEE" bpmnElement="sid-D2A35009-8D48-4FFE-8DC0-85119ECBFDEE" isHorizontal="true">
-        <omgdc:Bounds x="351" y="1082" width="1907" height="240" />
+        <omgdc:Bounds x="351" y="1082" width="2037" height="240" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_sid-E763C1EA-042A-47CA-B0C4-CE1BD0D38E1F" bpmnElement="sid-E763C1EA-042A-47CA-B0C4-CE1BD0D38E1F">
-        <omgdc:Bounds x="1428" y="1112" width="100" height="80" />
+        <omgdc:Bounds x="1558" y="1113" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_sid-F6427C25-90EF-4B24-BA87-498754AC8A71" bpmnElement="sid-F6427C25-90EF-4B24-BA87-498754AC8A71">
-        <omgdc:Bounds x="1748" y="1172" width="100" height="80" />
+        <omgdc:Bounds x="1878" y="1172" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_sid-066558BB-3A6F-43F4-BE42-BE5B2F224DE9" bpmnElement="sid-066558BB-3A6F-43F4-BE42-BE5B2F224DE9">
-        <omgdc:Bounds x="1908" y="1172" width="100" height="80" />
+        <omgdc:Bounds x="2038" y="1172" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_sid-3EEE9115-7AC3-4B30-85CB-AC462E03D3C7" bpmnElement="sid-3EEE9115-7AC3-4B30-85CB-AC462E03D3C7" isMarkerVisible="true">
-        <omgdc:Bounds x="1558" y="1132" width="40" height="40" />
+        <omgdc:Bounds x="1688" y="1140" width="40" height="40" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_sid-DD167613-6CB5-459F-BA02-D7A27BBA9B18" bpmnElement="sid-DD167613-6CB5-459F-BA02-D7A27BBA9B18" isHorizontal="true">
-        <omgdc:Bounds x="351" y="700" width="1907" height="240" />
+        <omgdc:Bounds x="351" y="700" width="2037" height="240" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_sid-5831F6FE-01C0-4B80-A457-9D78A4328032" bpmnElement="sid-5831F6FE-01C0-4B80-A457-9D78A4328032">
         <omgdc:Bounds x="440" y="780" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_sid-D51C7797-7862-4984-9DE9-8C6F9542E4AF" bpmnElement="sid-D51C7797-7862-4984-9DE9-8C6F9542E4AF">
-        <omgdi:waypoint x="1339" y="531" />
-        <omgdi:waypoint x="1339" y="972" />
+        <omgdi:waypoint x="1468" y="532" />
+        <omgdi:waypoint x="1468" y="610" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="1343" y="548" width="77" height="14" />
+          <omgdc:Bounds x="1387" y="572" width="77" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_sid-80A661BD-A1D2-4C9E-B200-5A961A69DF7A" bpmnElement="sid-80A661BD-A1D2-4C9E-B200-5A961A69DF7A">
-        <omgdi:waypoint x="1357" y="513" />
-        <omgdi:waypoint x="1478" y="513" />
-        <omgdi:waypoint x="1478" y="1112" />
+        <omgdi:waypoint x="1487" y="513" />
+        <omgdi:waypoint x="1608" y="513" />
+        <omgdi:waypoint x="1608" y="610" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="1376" y="496" width="12" height="14" />
+          <omgdc:Bounds x="1506" y="496" width="12" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_sid-CACA64A1-2037-4DDC-85FF-FBFC172AD8F7" bpmnElement="sid-CACA64A1-2037-4DDC-85FF-FBFC172AD8F7">
@@ -358,19 +378,17 @@ billingDocumentsFolder=object.billingFolder;</camunda:script>
         <omgdi:waypoint x="960" y="512" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_sid-EDB876F4-F0C7-44DC-A398-A3C9F2BF0694" bpmnElement="sid-EDB876F4-F0C7-44DC-A398-A3C9F2BF0694">
-        <omgdi:waypoint x="1578" y="1132" />
-        <omgdi:waypoint x="1578" y="855" />
-        <omgdi:waypoint x="1280" y="855.3202755328332" />
-        <omgdi:waypoint x="1280" y="552" />
+        <omgdi:waypoint x="1708" y="1180" />
+        <omgdi:waypoint x="1708" y="1230" />
+        <omgdi:waypoint x="1250" y="1230" />
+        <omgdi:waypoint x="1250" y="552" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="1588" y="1104" width="30" height="14" />
+          <omgdc:Bounds x="1668" y="1176" width="30" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_sid-D1EB8FFB-12FA-4203-886F-BB8B695EAF69" bpmnElement="sid-D1EB8FFB-12FA-4203-886F-BB8B695EAF69">
-        <omgdi:waypoint x="1528" y="1152" />
-        <omgdi:waypoint x="1543" y="1152" />
-        <omgdi:waypoint x="1543" y="1153" />
-        <omgdi:waypoint x="1559" y="1153" />
+        <omgdi:waypoint x="1658" y="1161" />
+        <omgdi:waypoint x="1689" y="1161" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_sid-F369B5C8-11DA-42ED-8488-C976C3344623" bpmnElement="sid-F369B5C8-11DA-42ED-8488-C976C3344623">
         <omgdi:waypoint x="980" y="532" />
@@ -382,15 +400,15 @@ billingDocumentsFolder=object.billingFolder;</camunda:script>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_sid-8983949C-E2C1-4DDE-94DF-80E6C8ED6441" bpmnElement="sid-8983949C-E2C1-4DDE-94DF-80E6C8ED6441">
-        <omgdi:waypoint x="1289" y="1012" />
-        <omgdi:waypoint x="1260" y="1011" />
-        <omgdi:waypoint x="1260" y="552" />
+        <omgdi:waypoint x="1419" y="1013" />
+        <omgdi:waypoint x="1270" y="1011" />
+        <omgdi:waypoint x="1270" y="552" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_sid-C1EE4A9D-E452-4F36-BCA6-B3F9932A6722" bpmnElement="sid-C1EE4A9D-E452-4F36-BCA6-B3F9932A6722">
-        <omgdi:waypoint x="1298" y="512" />
-        <omgdi:waypoint x="1308" y="512" />
-        <omgdi:waypoint x="1308" y="513" />
-        <omgdi:waypoint x="1319" y="513" />
+        <omgdi:waypoint x="1428" y="512" />
+        <omgdi:waypoint x="1438" y="512" />
+        <omgdi:waypoint x="1438" y="513" />
+        <omgdi:waypoint x="1449" y="513" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_sid-DFCBE6D5-8B8A-4BA6-9F52-18B030E6D0BB" bpmnElement="sid-DFCBE6D5-8B8A-4BA6-9F52-18B030E6D0BB">
         <omgdi:waypoint x="490" y="666" />
@@ -416,36 +434,36 @@ billingDocumentsFolder=object.billingFolder;</camunda:script>
         <omgdi:waypoint x="739" y="512" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="StartEvent_0e3dq54_di" bpmnElement="StartEvent_0e3dq54">
-        <omgdc:Bounds x="1688" y="1194" width="36" height="36" />
+        <omgdc:Bounds x="1818" y="1194" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1tw3500_di" bpmnElement="SequenceFlow_1tw3500">
-        <omgdi:waypoint x="1578" y="1172" />
-        <omgdi:waypoint x="1578" y="1212" />
-        <omgdi:waypoint x="1648" y="1212" />
+        <omgdi:waypoint x="1708" y="1140" />
+        <omgdi:waypoint x="1708" y="1120" />
+        <omgdi:waypoint x="1779" y="1120" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="1583" y="1173" width="12" height="14" />
+          <omgdc:Bounds x="1691" y="1113" width="12" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_00kbu1f_di" bpmnElement="SequenceFlow_00kbu1f">
-        <omgdi:waypoint x="1724" y="1212" />
-        <omgdi:waypoint x="1748" y="1212" />
+        <omgdi:waypoint x="1854" y="1212" />
+        <omgdi:waypoint x="1878" y="1212" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0bn7sdb_di" bpmnElement="SequenceFlow_0bn7sdb">
-        <omgdi:waypoint x="1848" y="1212" />
-        <omgdi:waypoint x="1908" y="1212" />
+        <omgdi:waypoint x="1978" y="1212" />
+        <omgdi:waypoint x="2038" y="1212" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="EndEvent_10mxv9y_di" bpmnElement="EndEvent_10mxv9y">
-        <omgdc:Bounds x="2070" y="1194" width="36" height="36" />
+        <omgdc:Bounds x="2200" y="1194" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1xsi604_di" bpmnElement="SequenceFlow_1xsi604">
-        <omgdi:waypoint x="2008" y="1212" />
-        <omgdi:waypoint x="2070" y="1212" />
+        <omgdi:waypoint x="2138" y="1212" />
+        <omgdi:waypoint x="2200" y="1212" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="EndEvent_1cp1y61_di" bpmnElement="EndEvent_1cp1y61">
-        <omgdc:Bounds x="2170" y="1194" width="36" height="36" />
+        <omgdc:Bounds x="2300" y="1194" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="SubProcess_1tko1k5_di" bpmnElement="SubProcess_Billing" isExpanded="true">
-        <omgdc:Bounds x="1648" y="1112" width="480" height="200" />
+        <omgdc:Bounds x="1778" y="1112" width="480" height="200" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="SendTask_0cr4rvm_di" bpmnElement="sid-B1262BF1-8725-4825-AED2-9FAF332D5855">
         <omgdc:Bounds x="432" y="585" width="116" height="81" />
@@ -457,8 +475,8 @@ billingDocumentsFolder=object.billingFolder;</camunda:script>
         <omgdc:Bounds x="818" y="472" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_00ajp93_di" bpmnElement="SequenceFlow_00ajp93">
-        <omgdi:waypoint x="2128" y="1212" />
-        <omgdi:waypoint x="2170" y="1212" />
+        <omgdi:waypoint x="2258" y="1212" />
+        <omgdi:waypoint x="2300" y="1212" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1mmuk1w_di" bpmnElement="SequenceFlow_1mmuk1w">
         <omgdi:waypoint x="540" y="820" />
@@ -481,7 +499,7 @@ billingDocumentsFolder=object.billingFolder;</camunda:script>
       <bpmndi:BPMNShape id="DataStoreReference_0dcwsjt_di" bpmnElement="DataStoreReference_0dcwsjt">
         <omgdc:Bounds x="983" y="845" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="999" y="902" width="18" height="14" />
+          <omgdc:Bounds x="976" y="902" width="64" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataOutputAssociation_0bey3ak_di" bpmnElement="DataOutputAssociation_0bey3ak">
@@ -507,7 +525,7 @@ billingDocumentsFolder=object.billingFolder;</camunda:script>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_sid-58E312D0-9272-4FC2-84D7-43334D245247" bpmnElement="sid-58E312D0-9272-4FC2-84D7-43334D245247">
         <omgdi:waypoint x="1166" y="512" />
-        <omgdi:waypoint x="1198" y="512" />
+        <omgdi:waypoint x="1190" y="512" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="DataStoreReference_0k72sif_di" bpmnElement="DataStoreReference_0k72sif">
         <omgdc:Bounds x="1155" y="1005" width="50" height="50" />
@@ -520,16 +538,16 @@ billingDocumentsFolder=object.billingFolder;</camunda:script>
         <omgdi:waypoint x="1173" y="1005" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataOutputAssociation_1ue3zv9_di" bpmnElement="DataOutputAssociation_1ue3zv9">
-        <omgdi:waypoint x="1210" y="552" />
-        <omgdi:waypoint x="1191" y="1005" />
+        <omgdi:waypoint x="1331" y="549" />
+        <omgdi:waypoint x="1197" y="1005" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataOutputAssociation_1aq3kqf_di" bpmnElement="DataOutputAssociation_1aq3kqf">
-        <omgdi:waypoint x="1289" y="1018" />
-        <omgdi:waypoint x="1205" y="1027" />
+        <omgdi:waypoint x="1419" y="1016" />
+        <omgdi:waypoint x="1205" y="1029" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataOutputAssociation_04q94wp_di" bpmnElement="DataOutputAssociation_04q94wp">
-        <omgdi:waypoint x="1428" y="1132" />
-        <omgdi:waypoint x="1205" y="1042" />
+        <omgdi:waypoint x="1558" y="1139" />
+        <omgdi:waypoint x="1205" y="1039" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="StartEvent_1j8nva4_di" bpmnElement="StartEvent_1x3gyb1">
         <omgdc:Bounds x="372" y="442" width="36" height="36" />
@@ -542,7 +560,7 @@ billingDocumentsFolder=object.billingFolder;</camunda:script>
         <omgdi:waypoint x="390" y="442" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_1g2l0j9_di" bpmnElement="Participant_0bnp5zj" isHorizontal="true">
-        <omgdc:Bounds x="470" y="200" width="830" height="60" />
+        <omgdc:Bounds x="470" y="200" width="960" height="60" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="MessageFlow_1t7lft6_di" bpmnElement="MessageFlow_1t7lft6">
         <omgdi:waypoint x="1092" y="472" />
@@ -553,15 +571,15 @@ billingDocumentsFolder=object.billingFolder;</camunda:script>
         <omgdi:waypoint x="1150" y="472" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_1olaq9w_di" bpmnElement="Participant_01uu1oc" isHorizontal="true">
-        <omgdc:Bounds x="1000" y="80" width="300" height="60" />
+        <omgdc:Bounds x="1000" y="80" width="430" height="60" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="MessageFlow_0ms9dnh_di" bpmnElement="MessageFlow_0ms9dnh">
-        <omgdi:waypoint x="1110" y="200" />
-        <omgdi:waypoint x="1110" y="140" />
+        <omgdi:waypoint x="1210" y="200" />
+        <omgdi:waypoint x="1210" y="140" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="MessageFlow_146hg0x_di" bpmnElement="MessageFlow_146hg0x">
-        <omgdi:waypoint x="1130" y="140" />
-        <omgdi:waypoint x="1130" y="200" />
+        <omgdi:waypoint x="1186" y="140" />
+        <omgdi:waypoint x="1186" y="200" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="MessageFlow_02k73me_di" bpmnElement="MessageFlow_02k73me">
         <omgdi:waypoint x="490" y="460" />
@@ -570,6 +588,27 @@ billingDocumentsFolder=object.billingFolder;</camunda:script>
       <bpmndi:BPMNEdge id="MessageFlow_0rql1vv_di" bpmnElement="MessageFlow_0rql1vv">
         <omgdi:waypoint x="510" y="260" />
         <omgdi:waypoint x="510" y="460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_17vmrcj_di" bpmnElement="SequenceFlow_17vmrcj">
+        <omgdi:waypoint x="1290" y="512" />
+        <omgdi:waypoint x="1328" y="512" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="SendTask_113k3ej_di" bpmnElement="Task_05pj167">
+        <omgdc:Bounds x="1190" y="472" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="SendTask_1i8h25b_di" bpmnElement="SendTask_1i8h25b">
+        <omgdc:Bounds x="1418" y="610" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_12dfb4n_di" bpmnElement="SequenceFlow_12dfb4n">
+        <omgdi:waypoint x="1468" y="690" />
+        <omgdi:waypoint x="1469" y="972" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="SendTask_0oslgxs_di" bpmnElement="SendTask_0oslgxs">
+        <omgdc:Bounds x="1558" y="610" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0cgl13q_di" bpmnElement="SequenceFlow_0cgl13q">
+        <omgdi:waypoint x="1608" y="690" />
+        <omgdi:waypoint x="1608" y="1113" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
