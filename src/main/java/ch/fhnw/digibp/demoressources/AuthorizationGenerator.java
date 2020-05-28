@@ -20,7 +20,10 @@ import java.util.logging.Logger;
 import static org.camunda.bpm.engine.authorization.Authorization.ANY;
 import static org.camunda.bpm.engine.authorization.Authorization.AUTH_TYPE_GRANT;
 import static org.camunda.bpm.engine.authorization.Permissions.ALL;
+import static org.camunda.bpm.engine.authorization.Permissions.READ;
 import static org.camunda.bpm.engine.authorization.Resources.APPLICATION;
+import static org.camunda.bpm.engine.authorization.Resources.TASK;
+
 
 @Component
 public class AuthorizationGenerator {
@@ -207,7 +210,7 @@ public class AuthorizationGenerator {
         headOfMandateTasklistAuth.setResource(APPLICATION);
         authorizationService.saveAuthorization(headOfMandateTasklistAuth);
 
-        /**Authorization employeeTasklistAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        Authorization employeeTasklistAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
         employeeTasklistAuth.setGroupId(GROUP_EMPLOYEE);
         employeeTasklistAuth.addPermission(READ);
         //employeeTasklistAuth.setResourceId("tasklist");
@@ -217,7 +220,6 @@ public class AuthorizationGenerator {
         Authorization serviceDeskTasklistAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
         serviceDeskTasklistAuth.setGroupId(GROUP_SERVICEDESK);
         serviceDeskTasklistAuth.addPermission(READ);
-        serviceDeskTasklistAuth.addPermission(UPDATE);
         //serviceDeskTasklistAuth.setResourceId("tasklist");
         serviceDeskTasklistAuth.setResource(TASK);
         authorizationService.saveAuthorization(serviceDeskTasklistAuth);
@@ -227,6 +229,6 @@ public class AuthorizationGenerator {
         billingTasklistAuth.addPermission(READ);
         //billingTasklistAuth.setResourceId("tasklist");
         billingTasklistAuth.setResource(TASK);
-        authorizationService.saveAuthorization(billingTasklistAuth);*/
+        authorizationService.saveAuthorization(billingTasklistAuth);
     }
 }
