@@ -259,7 +259,7 @@ billingDocumentsFolder=object.billingFolder;</camunda:script>
     </sequenceFlow>
     <sequenceFlow id="SequenceFlow_00ajp93" sourceRef="SubProcess_Billing" targetRef="EndEvent_1cp1y61" />
     <sequenceFlow id="SequenceFlow_17vmrcj" sourceRef="Task_05pj167" targetRef="sid-1AA78D20-1DC7-495C-9AC3-53081966DE75" />
-    <sendTask id="Task_05pj167" name="Send notification that reports are ready">
+    <sendTask id="Task_05pj167" name="Send notification that reports are ready" camunda:expression="${true}">
       <incoming>sid-58E312D0-9272-4FC2-84D7-43334D245247</incoming>
       <incoming>sid-8983949C-E2C1-4DDE-94DF-80E6C8ED6441</incoming>
       <incoming>sid-EDB876F4-F0C7-44DC-A398-A3C9F2BF0694</incoming>
@@ -283,12 +283,12 @@ billingDocumentsFolder=object.billingFolder;</camunda:script>
         <targetRef>DataStoreReference_0k72sif</targetRef>
       </dataOutputAssociation>
     </userTask>
-    <sendTask id="SendTask_1i8h25b" name="Send notification that reports are ready">
+    <sendTask id="SendTask_1i8h25b" name="Send notification that reports are ready" camunda:expression="${true}">
       <incoming>sid-D51C7797-7862-4984-9DE9-8C6F9542E4AF</incoming>
       <outgoing>SequenceFlow_12dfb4n</outgoing>
     </sendTask>
     <sequenceFlow id="SequenceFlow_12dfb4n" sourceRef="SendTask_1i8h25b" targetRef="sid-D37B5D9D-1E96-4A88-B8D2-B70E0B76823E" />
-    <sendTask id="SendTask_0oslgxs" name="Send notification that reports are ready">
+    <sendTask id="SendTask_0oslgxs" name="Send notification that reports are ready" camunda:expression="${true}">
       <incoming>sid-80A661BD-A1D2-4C9E-B200-5A961A69DF7A</incoming>
       <outgoing>SequenceFlow_0cgl13q</outgoing>
     </sendTask>
