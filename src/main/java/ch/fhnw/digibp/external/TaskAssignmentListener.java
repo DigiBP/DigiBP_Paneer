@@ -57,7 +57,7 @@ public class TaskAssignmentListener implements TaskListener {
                     email.setAuthentication(emailUser, emailUserPassword);
 
                     StringBuffer messageBuffer = new StringBuffer("Please complete: ");
-                    messageBuffer.append(serverURL).append("/app/tasklist/default/#/?searchQuery=%5B%5D&filter=").append(taskId);
+                    messageBuffer.append(serverURL).append("app/tasklist/default/#/?searchQuery=%5B%5D&filter=").append(taskId);
                     if(null != billingDocumentsFolder){
                         messageBuffer.append(System.lineSeparator()).append("Folder link for billing documents: ").append(billingDocumentsFolder.toString());
                     }
