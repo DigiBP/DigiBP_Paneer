@@ -9,6 +9,8 @@ import ch.fhnw.digibp.external.client.mandate.entities.Mandate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
+
+import org.apache.commons.lang3.StringUtils;
 import org.camunda.bpm.client.ExternalTaskClient;
 import org.camunda.bpm.client.task.ExternalTask;
 import org.camunda.bpm.client.task.ExternalTaskService;
@@ -35,6 +37,9 @@ public class RetrieveMandateInformationService{
     @Value("${camunda-rest.tenantid}")
     private String tenantId;
 
+    @Value("${process.default-mandate}")
+    private String defaultMandate;
+
     @Autowired
     ExternalTaskClient client;
 
@@ -49,6 +54,9 @@ public class RetrieveMandateInformationService{
                 .handler((ExternalTask externalTask, ExternalTaskService externalTaskService) -> {
             try {
                 String mandateNameCriterion = externalTask.getBusinessKey();
+                if(StringUtils.isBlank(mandateNameCriterion)){
+                    mandateNameCriterion = defaultMandate;
+                }
                 Mandate mandate = retrieveMandateInformation(mandateNameCriterion);
 
                 Map<String, Object> variables = new HashMap<>();

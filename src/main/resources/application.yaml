@@ -6,7 +6,7 @@ camunda:
     filter:
       create: All Tasks
     authorization:
-      enabled: false
+      enabled: true
 
 spring:
   profiles:
@@ -28,6 +28,7 @@ camunda-rest:
 
 process:
   getmandate-information-url: https://putsreq.com/0t35TtKnuiTvpOox3iNo
+  default-mandate: Krusty_Krabs
 
 config:
   email-server: localhost
