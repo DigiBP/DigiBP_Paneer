@@ -21,7 +21,7 @@ https://drive.google.com/drive/u/1/my-drive?ths=true
 BPM diagram:
 https://github.com/DigiBP/DigiBP_Paneer/blob/master/src/main/resources/META-INF/To-beProcess.bpmn20.xml
 
-## DMN diagram:
+DMN diagram:
 https://github.com/DigiBP/DigiBP_Paneer/blob/master/src/main/resources/META-INF/DMN_isWorthBilling.dmn
 
 ## Documentation links
