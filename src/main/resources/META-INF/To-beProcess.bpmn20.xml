@@ -174,12 +174,12 @@ billingDocumentsFolder=object.billingFolder;</camunda:script>
       <extensionElements>
         <camunda:formData>
           <camunda:formField id="reportsNeedPolishing" label="Do the reports need polishing from service desk" type="boolean" defaultValue="true" />
-          <camunda:formField id="explanationwhyRefusedForm" label="Explanation why refused by billing" type="string" defaultValue="${explanationwhyRefusedLocal}">
+          <camunda:formField id="explanationwhyRefusedLocal" label="Explanation why refused by billing" type="string" defaultValue="${explanationwhyRefusedLocal}">
             <camunda:validation>
               <camunda:constraint name="readonly" />
             </camunda:validation>
           </camunda:formField>
-          <camunda:formField id="billingDocumentsLink" label="Folder link for billing documents:" type="string" defaultValue="${billingDocumentsFolder}">
+          <camunda:formField id="billingDocumentsFolder" label="Folder link for billing documents:" type="string" defaultValue="${billingDocumentsFolder}">
             <camunda:validation>
               <camunda:constraint name="readonly" />
             </camunda:validation>
@@ -189,7 +189,7 @@ billingDocumentsFolder=object.billingFolder;</camunda:script>
         <camunda:inputOutput>
           <camunda:inputParameter name="explanationwhyRefusedLocal">
             <camunda:script scriptFormat="JavaScript">if(typeof explanationwhyRefused == 'undefined'){
- explanationwhyRefusedLocal = "";
+ explanationwhyRefusedLocal = " ";
 } else {
  explanationwhyRefusedLocal = explanationwhyRefused;
 }</camunda:script>
