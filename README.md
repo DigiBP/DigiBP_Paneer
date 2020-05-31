@@ -3,7 +3,10 @@ This camunda project is the result of the Digitalisation of Business Process at 
 Link to the wiki for more information:
 https://github.com/DigiBP/DigiBP_Paneer/wiki
 
-Link to running application:
+Link to facial recognization
+https://bikinibottom.ch/v1
+
+Link to camunda running application:
 https://digibp-paneer.herokuapp.com/
 
 
