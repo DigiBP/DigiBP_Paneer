@@ -1,3 +1,5 @@
+![Maven Package](https://github.com/DigiBP/DigiBP_Paneer/workflows/Maven%20Package/badge.svg?branch=4.0.1)
+
 This camunda project is the result of the Digitalisation of Business Process at the [FHNW MBIS](https://www.fhnw.ch/en/degree-programmes/business/msc-bis). It respresents the digitilization of a real world process and shows the improvements that come with it.
 
 ## Running instance links
