@@ -31,9 +31,9 @@ https://github.com/DigiBP/DigiBP_Paneer/wiki
 
 
 ## Team members
-- David Huynh
-- Benedikt Bloch
-- Simon Girardin
+- David Huynh -> Davehuy
+- Benedikt Bloch -> Benedikt Block
+- Simon Girardin -> sgirardin
 
 ## Maintainer
 - [Andreas Martin](https://github.com/andreasmartin)
