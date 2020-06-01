@@ -12,6 +12,9 @@ https://digibp-paneer.herokuapp.com/
 Dev mail server:
 https://heroku.mailtrap.io/inboxes
 
+Form to login hours for employee
+https://docs.google.com/forms/d/e/1FAIpQLSc2Q4fUQkncGSmKdvb4FZddCsRPzIXFLXotnpcOskPd6M_m9w/viewform
+
 Google sheet time logging DB:
 https://docs.google.com/spreadsheets/d/1mnhEI4FpGe2UCk1ecB6hwk7sHeOifAIHqctNiDbozhU/edit#gid=645642903
 
