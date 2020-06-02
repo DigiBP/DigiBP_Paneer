@@ -19,10 +19,9 @@ import java.util.logging.Logger;
 
 import static org.camunda.bpm.engine.authorization.Authorization.ANY;
 import static org.camunda.bpm.engine.authorization.Authorization.AUTH_TYPE_GRANT;
-import static org.camunda.bpm.engine.authorization.Permissions.ALL;
-import static org.camunda.bpm.engine.authorization.Permissions.READ;
-import static org.camunda.bpm.engine.authorization.Resources.APPLICATION;
-import static org.camunda.bpm.engine.authorization.Resources.TASK;
+import static org.camunda.bpm.engine.authorization.Permissions.*;
+import static org.camunda.bpm.engine.authorization.ProcessInstancePermissions.UPDATE_VARIABLE;
+import static org.camunda.bpm.engine.authorization.Resources.*;
 
 
 @Component
@@ -202,33 +201,210 @@ public class AuthorizationGenerator {
 
         identityService.createMembership(USER_PEARLSKRABS, GROUP_BILLING);
 
-        // authorize groups for tasklist only:
-        Authorization headOfMandateTasklistAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
-        headOfMandateTasklistAuth.setGroupId(GROUP_HEAD_OF_MANDATE);
-        headOfMandateTasklistAuth.addPermission(ALL);
-        //headOfMandateTasklistAuth.setResourceId("*");
-        headOfMandateTasklistAuth.setResource(APPLICATION);
-        authorizationService.saveAuthorization(headOfMandateTasklistAuth);
+        createApplicationAuthorizations();
+        createAuthorizationAuthorizations();
+        createDecisionDefinitionAuthorizations();
+        createDecisionRequirementsDefinitionAuthorizations();
+        createFilterAuthorizations();
+        createProcessDefinitionAuthorizations();
+        createProcessInstanceAuthorizations();
+        createTaskAuthorizations();
+        createTenantAuthorizations();
 
-        Authorization employeeTasklistAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
-        employeeTasklistAuth.setGroupId(GROUP_EMPLOYEE);
-        employeeTasklistAuth.addPermission(READ);
-        //employeeTasklistAuth.setResourceId("tasklist");
-        employeeTasklistAuth.setResource(TASK);
-        authorizationService.saveAuthorization(employeeTasklistAuth);
-
-        Authorization serviceDeskTasklistAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
-        serviceDeskTasklistAuth.setGroupId(GROUP_SERVICEDESK);
-        serviceDeskTasklistAuth.addPermission(READ);
-        //serviceDeskTasklistAuth.setResourceId("tasklist");
-        serviceDeskTasklistAuth.setResource(TASK);
-        authorizationService.saveAuthorization(serviceDeskTasklistAuth);
-
-        Authorization billingTasklistAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
-        billingTasklistAuth.setGroupId(GROUP_BILLING);
-        billingTasklistAuth.addPermission(READ);
-        //billingTasklistAuth.setResourceId("tasklist");
-        billingTasklistAuth.setResource(TASK);
-        authorizationService.saveAuthorization(billingTasklistAuth);
     }
+
+    private void createApplicationAuthorizations(){
+        Authorization headOfMandateApplicationAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        headOfMandateApplicationAuth.setGroupId(GROUP_HEAD_OF_MANDATE);
+        headOfMandateApplicationAuth.addPermission(ALL);
+        headOfMandateApplicationAuth.setResourceId("*");
+        headOfMandateApplicationAuth.setResource(APPLICATION);
+        authorizationService.saveAuthorization(headOfMandateApplicationAuth);
+
+        Authorization employeeApplicationAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        employeeApplicationAuth.setGroupId(GROUP_EMPLOYEE);
+        employeeApplicationAuth.addPermission(ALL);
+        employeeApplicationAuth.setResourceId("tasklist");
+        employeeApplicationAuth.setResource(APPLICATION);
+        authorizationService.saveAuthorization(employeeApplicationAuth);
+
+        Authorization serviceDeskApplicationAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        serviceDeskApplicationAuth.setGroupId(GROUP_SERVICEDESK);
+        serviceDeskApplicationAuth.addPermission(ALL);
+        serviceDeskApplicationAuth.setResourceId("tasklist");
+        serviceDeskApplicationAuth.setResource(APPLICATION);
+        authorizationService.saveAuthorization(serviceDeskApplicationAuth);
+
+        Authorization billingApplicationAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        billingApplicationAuth.setGroupId(GROUP_BILLING);
+        billingApplicationAuth.addPermission(ALL);
+        billingApplicationAuth.setResourceId("tasklist");
+        billingApplicationAuth.setResource(APPLICATION);
+        authorizationService.saveAuthorization(billingApplicationAuth);
+    }
+
+    private void createAuthorizationAuthorizations(){
+        Authorization headOfMandateApplicationAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        headOfMandateApplicationAuth.setGroupId(GROUP_HEAD_OF_MANDATE);
+        headOfMandateApplicationAuth.addPermission(ALL);
+        headOfMandateApplicationAuth.setResourceId("*");
+        headOfMandateApplicationAuth.setResource(AUTHORIZATION);
+        authorizationService.saveAuthorization(headOfMandateApplicationAuth);
+
+        Authorization employeeApplicationAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        employeeApplicationAuth.setGroupId(GROUP_EMPLOYEE);
+        employeeApplicationAuth.addPermission(ALL);
+        employeeApplicationAuth.setResourceId("tasklist");
+        employeeApplicationAuth.setResource(AUTHORIZATION);
+        authorizationService.saveAuthorization(employeeApplicationAuth);
+
+        Authorization serviceDeskApplicationAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        serviceDeskApplicationAuth.setGroupId(GROUP_SERVICEDESK);
+        serviceDeskApplicationAuth.addPermission(ALL);
+        serviceDeskApplicationAuth.setResourceId("tasklist");
+        serviceDeskApplicationAuth.setResource(AUTHORIZATION);
+        authorizationService.saveAuthorization(serviceDeskApplicationAuth);
+
+        Authorization billingApplicationAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        billingApplicationAuth.setGroupId(GROUP_BILLING);
+        billingApplicationAuth.addPermission(ALL);
+        billingApplicationAuth.setResourceId("tasklist");
+        billingApplicationAuth.setResource(AUTHORIZATION);
+        authorizationService.saveAuthorization(billingApplicationAuth);
+    }
+
+    private void createDecisionDefinitionAuthorizations() {
+        Authorization headOfMandateApplicationAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        headOfMandateApplicationAuth.setGroupId(GROUP_HEAD_OF_MANDATE);
+        headOfMandateApplicationAuth.addPermission(ALL);
+        headOfMandateApplicationAuth.setResourceId("*");
+        headOfMandateApplicationAuth.setResource(DECISION_DEFINITION);
+        authorizationService.saveAuthorization(headOfMandateApplicationAuth);
+
+    }
+
+    private void createDecisionRequirementsDefinitionAuthorizations() {
+        Authorization headOfMandateApplicationAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        headOfMandateApplicationAuth.setGroupId(GROUP_HEAD_OF_MANDATE);
+        headOfMandateApplicationAuth.addPermission(ALL);
+        headOfMandateApplicationAuth.setResourceId("*");
+        headOfMandateApplicationAuth.setResource(DECISION_REQUIREMENTS_DEFINITION);
+        authorizationService.saveAuthorization(headOfMandateApplicationAuth);
+    }
+
+    private void createFilterAuthorizations() {
+        Authorization headOfMandateApplicationAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        headOfMandateApplicationAuth.setGroupId(GROUP_HEAD_OF_MANDATE);
+        headOfMandateApplicationAuth.addPermission(ALL);
+        headOfMandateApplicationAuth.setResourceId("*");
+        headOfMandateApplicationAuth.setResource(FILTER);
+        authorizationService.saveAuthorization(headOfMandateApplicationAuth);
+    }
+
+    private void createProcessDefinitionAuthorizations() {
+        Authorization headOfMandateApplicationAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        headOfMandateApplicationAuth.setGroupId(GROUP_HEAD_OF_MANDATE);
+        headOfMandateApplicationAuth.addPermission(ALL);
+        headOfMandateApplicationAuth.setResourceId("*");
+        headOfMandateApplicationAuth.setResource(PROCESS_DEFINITION);
+        authorizationService.saveAuthorization(headOfMandateApplicationAuth);
+
+    }
+
+    private void createProcessInstanceAuthorizations(){
+        Authorization headOfMandateApplicationAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        headOfMandateApplicationAuth.setGroupId(GROUP_HEAD_OF_MANDATE);
+        headOfMandateApplicationAuth.addPermission(ALL);
+        headOfMandateApplicationAuth.setResourceId("*");
+        headOfMandateApplicationAuth.setResource(PROCESS_INSTANCE);
+        authorizationService.saveAuthorization(headOfMandateApplicationAuth);
+
+        Authorization employeeApplicationAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        employeeApplicationAuth.setGroupId(GROUP_EMPLOYEE);
+        employeeApplicationAuth.addPermission(READ);
+        employeeApplicationAuth.addPermission(UPDATE);
+        employeeApplicationAuth.addPermission(UPDATE_VARIABLE);
+        employeeApplicationAuth.setResourceId("*");
+        employeeApplicationAuth.setResource(PROCESS_INSTANCE);
+        authorizationService.saveAuthorization(employeeApplicationAuth);
+
+        Authorization serviceDeskApplicationAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        serviceDeskApplicationAuth.setGroupId(GROUP_SERVICEDESK);
+        serviceDeskApplicationAuth.addPermission(READ);
+        serviceDeskApplicationAuth.addPermission(UPDATE);
+        serviceDeskApplicationAuth.addPermission(UPDATE_VARIABLE);
+        serviceDeskApplicationAuth.setResourceId("*");
+        serviceDeskApplicationAuth.setResource(PROCESS_INSTANCE);
+        authorizationService.saveAuthorization(serviceDeskApplicationAuth);
+
+        Authorization billingApplicationAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        billingApplicationAuth.setGroupId(GROUP_BILLING);
+        billingApplicationAuth.addPermission(READ);
+        billingApplicationAuth.addPermission(UPDATE);
+        billingApplicationAuth.addPermission(UPDATE_VARIABLE);
+        billingApplicationAuth.setResourceId("*");
+        billingApplicationAuth.setResource(PROCESS_INSTANCE);
+        authorizationService.saveAuthorization(billingApplicationAuth);
+    }
+
+    private void createTaskAuthorizations(){
+        Authorization headOfMandateApplicationAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        headOfMandateApplicationAuth.setGroupId(GROUP_HEAD_OF_MANDATE);
+        headOfMandateApplicationAuth.addPermission(ALL);
+        headOfMandateApplicationAuth.setResourceId("*");
+        headOfMandateApplicationAuth.setResource(TASK);
+        authorizationService.saveAuthorization(headOfMandateApplicationAuth);
+
+        Authorization employeeApplicationAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        employeeApplicationAuth.setGroupId(GROUP_EMPLOYEE);
+        employeeApplicationAuth.addPermission(ALL);
+        employeeApplicationAuth.setResourceId("*");
+        employeeApplicationAuth.setResource(TASK);
+        authorizationService.saveAuthorization(employeeApplicationAuth);
+
+        Authorization serviceDeskApplicationAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        serviceDeskApplicationAuth.setGroupId(GROUP_SERVICEDESK);
+        serviceDeskApplicationAuth.addPermission(ALL);
+        serviceDeskApplicationAuth.setResourceId("*");
+        serviceDeskApplicationAuth.setResource(TASK);
+        authorizationService.saveAuthorization(serviceDeskApplicationAuth);
+
+        Authorization billingApplicationAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        billingApplicationAuth.setGroupId(GROUP_BILLING);
+        billingApplicationAuth.addPermission(ALL);
+        billingApplicationAuth.setResourceId("*");
+        billingApplicationAuth.setResource(TASK);
+        authorizationService.saveAuthorization(billingApplicationAuth);
+    }
+
+    private void createTenantAuthorizations(){
+        Authorization headOfMandateApplicationAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        headOfMandateApplicationAuth.setGroupId(GROUP_HEAD_OF_MANDATE);
+        headOfMandateApplicationAuth.addPermission(ALL);
+        headOfMandateApplicationAuth.setResourceId("*");
+        headOfMandateApplicationAuth.setResource(TENANT);
+        authorizationService.saveAuthorization(headOfMandateApplicationAuth);
+
+        Authorization employeeApplicationAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        employeeApplicationAuth.setGroupId(GROUP_EMPLOYEE);
+        employeeApplicationAuth.addPermission(ALL);
+        employeeApplicationAuth.setResourceId("*");
+        employeeApplicationAuth.setResource(TENANT);
+        authorizationService.saveAuthorization(employeeApplicationAuth);
+
+        Authorization serviceDeskApplicationAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        serviceDeskApplicationAuth.setGroupId(GROUP_SERVICEDESK);
+        serviceDeskApplicationAuth.addPermission(ALL);
+        serviceDeskApplicationAuth.setResourceId("*");
+        serviceDeskApplicationAuth.setResource(TENANT);
+        authorizationService.saveAuthorization(serviceDeskApplicationAuth);
+
+        Authorization billingApplicationAuth = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
+        billingApplicationAuth.setGroupId(GROUP_BILLING);
+        billingApplicationAuth.addPermission(ALL);
+        billingApplicationAuth.setResourceId("*");
+        billingApplicationAuth.setResource(TENANT);
+        authorizationService.saveAuthorization(billingApplicationAuth);
+    }
+
 }
