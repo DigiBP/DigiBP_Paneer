@@ -33,6 +33,8 @@ https://github.com/DigiBP/DigiBP_Paneer/blob/master/src/main/resources/META-INF/
 Wiki for more information:
 https://github.com/DigiBP/DigiBP_Paneer/wiki
 
+Presentation video:
+https://youtu.be/jeaI6rQ0LUQ
 
 
 ## Team members
