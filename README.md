@@ -1,6 +1,6 @@
 ![Maven Package](https://github.com/DigiBP/DigiBP_Paneer/workflows/Maven%20Package/badge.svg?branch=4.0.1)
 
-This camunda project is the result of the Digitalisation of Business Process at the [FHNW MScBIS](https://www.fhnw.ch/en/degree-programmes/business/msc-bis). It respresents the digitilization of a real world process and shows the improvements that come with it.
+This camunda project is the result of the Digitalization of Business Process at the [FHNW MScBIS](https://www.fhnw.ch/en/degree-programmes/business/msc-bis). It represents the digitalization of a real-world process and shows the improvements that come with it.
 
 ## Running instance links
 Start application with facial recognization
@@ -34,7 +34,7 @@ Wiki for more information:
 https://github.com/DigiBP/DigiBP_Paneer/wiki
 
 Presentation video:
-https://youtu.be/jeaI6rQ0LUQ
+https://youtu.be/ZW537AWmCws
 
 
 ## Team members
