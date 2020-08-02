@@ -7,6 +7,8 @@ camunda:
       create: All Tasks
     authorization:
       enabled: true
+    metrics:
+      enabled: false
 
 spring:
   profiles:
